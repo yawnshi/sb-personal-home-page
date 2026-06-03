@@ -86,7 +86,7 @@
       <div class="max-w-7xl mx-auto px-6 md:px-12 flex justify-between items-center relative">
         <!-- Logo -->
         <a href="#" class="text-2xl font-bold tracking-tighter relative z-10">
-          <span class="text-white">Dev</span><span class="text-brand">.</span>
+          <span class="text-white">SB</span><span class="text-brand">.</span>
         </a>
 
         <!-- Navigation Links & Contact Button -->
@@ -246,17 +246,96 @@
           <div class="w-full md:w-1/2">
             <h2 class="text-4xl font-bold mb-6 text-white">About <span class="text-brand">Me</span></h2>
             <p class="text-gray-300 mb-6 leading-relaxed">
-              I am an experienced web developer with strong focus on User Experience (UX). Recognized for
-              excellent problem-solving skills and a client-centered approach to design and development.
+              I am an experienced web developer with strong focus on User Experience (UX). Recognized for excellent
+              problem-solving skills and a client-centered approach to design and development.
             </p>
             <p class="text-gray-300 mb-8 leading-relaxed">
               I specialize in modern web technologies, bridging the gap between beautiful design and robust engineering.
+            </p>
+
+            <p class="text-gray-300 mb-8 leading-relaxed">
+              I enjoy learning new things outside my field, such as psychology and philosophy, through informal study.
+              This curiosity drives me to better understand human behavior and apply that knowledge to create more
+              intuitive and engaging digital experiences.
             </p>
 
             <div class="grid grid-cols-2 gap-6">
               <div class="border-l-4 border-brand pl-4">
                 <h3 class="text-3xl font-bold text-brand">5+</h3>
                 <p class="text-sm text-gray-400 font-medium">Years Experience</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="space" class="relative min-h-screen flex items-center justify-center py-24 z-10">
+      <div class="max-w-7xl mx-auto px-6 md:px-12 w-full">
+        <div
+          class="bg-offBlack/80 backdrop-blur-md border border-brand/20 rounded-3xl p-8 md:p-12 shadow-[0_0_40px_rgba(16,185,129,0.05)]"
+        >
+          <div class="text-center mb-16">
+            <h2 class="text-4xl font-bold mb-4 text-white">Personal <span class="text-brand">Space</span></h2>
+            <p class="text-gray-400 max-w-2xl mx-auto">
+              A glimpse into what fuels my focus and creativity. Here's what I'm currently listening to and watching.
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <!-- Personal Section -->
+            <div
+              class="bg-pureBlack rounded-2xl overflow-hidden border border-brand-darker p-6 card-hover transition-all duration-300"
+            >
+              <div class="flex items-center gap-3 mb-6">
+                <div class="w-10 h-10 rounded-full bg-brand/10 flex items-center justify-center">
+                  <i class="fas fa-headphones text-brand text-lg"></i>
+                </div>
+                <h3 class="text-xl font-bold text-white">On Repeat</h3>
+              </div>
+              <p class="text-gray-400 text-sm mb-6">My anti-mainstream music that i listen to</p>
+
+              <!-- YouTube Embed -->
+              <div
+                class="relative w-full aspect-video rounded-xl overflow-hidden border border-brand/20 shadow-[0_0_15px_rgba(16,185,129,0.1)]"
+              >
+                <iframe
+                  class="absolute top-0 left-0 w-full h-full"
+                  src="https://www.youtube.com/embed/videoseries?si=PPU3hyNasxUWEoc5&amp;list=PLPirW_3Fhee_pfal-zq34cbCP7FB9k4E4"
+                  title="YouTube video player"
+                  frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen
+                >
+                </iframe>
+              </div>
+            </div>
+
+            <!-- Mainstream Section -->
+            <div
+              class="bg-pureBlack rounded-2xl overflow-hidden border border-brand-darker p-6 card-hover transition-all duration-300"
+            >
+              <div class="flex items-center gap-3 mb-6">
+                <div class="w-10 h-10 rounded-full bg-brand/10 flex items-center justify-center">
+                  <i class="fas fa-microphone-alt text-brand text-lg"></i>
+                </div>
+                <h3 class="text-xl font-bold text-white">Mainstream Music</h3>
+              </div>
+              <p class="text-gray-400 text-sm mb-6">The latest hits and popular tracks I enjoy</p>
+
+              <!-- YouTube Embed -->
+              <div
+                class="relative w-full aspect-video rounded-xl overflow-hidden border border-brand/20 shadow-[0_0_15px_rgba(16,185,129,0.1)]"
+              >
+                <iframe
+                  class="absolute top-0 left-0 w-full h-full"
+                  src="https://www.youtube.com/embed/videoseries?si=_DfDeOiUf9rA-NTz&amp;list=PLPirW_3Fhee9Iqfah08npjgMtVpjFsN93"
+                  title="YouTube video player"
+                  frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen
+                >
+                </iframe>
               </div>
             </div>
           </div>
@@ -273,44 +352,37 @@
           <div class="text-center mb-16">
             <h2 class="text-4xl font-bold mb-4 text-white">Featured <span class="text-brand">Projects</span></h2>
             <p class="text-gray-400 max-w-2xl mx-auto">
-              Interactive UI components directly embedded within the layout for a seamless preview experience.
+              A selection of my recent work, showcasing a range of skills and technologies. 
+              Click on "Visit Project" to see more details and live demos.
             </p>
           </div>
 
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <!-- Project 1: FinTech Analytics -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- Project 1 -->
             <div
               class="bg-pureBlack rounded-2xl overflow-hidden border border-brand-darker card-hover transition-all duration-300 group flex flex-col"
             >
               <!-- Direct UI Preview -->
               <div
-                class="h-56 bg-slate-50 relative overflow-hidden flex items-end justify-center gap-3 pb-6 border-b border-brand/20 pt-10"
+                class="h-56 bg-gray-950 relative overflow-hidden flex items-center justify-center border-b border-brand/20"
               >
+                <img
+                  src="./tarfalmadani.webp"
+                  alt="School website preview"
+                  class="absolute inset-0 w-full h-full object-cover"
+                />
                 <div class="absolute top-4 left-4 text-slate-400 text-xs font-bold uppercase flex items-center gap-2">
-                  <i class="fas fa-chart-line text-emerald-500"></i> Revenue Stream
+                  <i class="fas fa-school text-emerald-500"></i> School
                 </div>
-                <!-- CSS Animated Bars -->
-                <div
-                  class="w-10 bg-emerald-200 rounded-t h-[40%] group-hover:h-[60%] transition-all duration-700 ease-in-out"
-                ></div>
-                <div
-                  class="w-10 bg-emerald-400 rounded-t h-[70%] group-hover:h-[85%] transition-all duration-700 ease-in-out delay-75"
-                ></div>
-                <div
-                  class="w-10 bg-emerald-600 rounded-t h-[50%] group-hover:h-[95%] transition-all duration-700 ease-in-out delay-150"
-                ></div>
-                <div
-                  class="w-10 bg-emerald-800 rounded-t h-[90%] group-hover:h-[100%] transition-all duration-700 ease-in-out delay-200"
-                ></div>
               </div>
               <!-- Info -->
               <div class="p-6 flex-1 flex flex-col justify-between">
                 <div>
                   <h3 class="text-2xl font-bold text-white mb-2 group-hover:text-brand transition-colors">
-                    FinTech Analytics
+                    Tarfal Madani
                   </h3>
                   <p class="text-gray-400 text-sm mb-4">
-                    Real-time dashboard for tracking financial metrics with dynamic, responsive CSS charts.
+                    The website of a foundation in Bogor which oversees many schools also has a college
                   </p>
                 </div>
                 <div>
@@ -324,14 +396,18 @@
                       >Tailwind</span
                     >
                   </div>
-                  <a href="#" class="text-brand hover:text-brand-light font-medium text-sm flex items-center gap-1">
-                    View Project <i class="fas fa-arrow-right text-xs"></i>
+                  <a
+                    href="https://dev.tarfalmadani.com"
+                    target="_blank"
+                    class="text-brand hover:text-brand-light font-medium text-sm flex items-center gap-1"
+                  >
+                    Visit Project <i class="fas fa-arrow-right text-xs"></i>
                   </a>
                 </div>
               </div>
             </div>
 
-            <!-- Project 2: Web3 NFT Marketplace -->
+            <!-- Project 2 -->
             <div
               class="bg-pureBlack rounded-2xl overflow-hidden border border-brand-darker card-hover transition-all duration-300 group flex flex-col"
             >
@@ -339,104 +415,151 @@
               <div
                 class="h-56 bg-gray-950 relative overflow-hidden flex items-center justify-center border-b border-brand/20"
               >
-                <!-- Floating NFT Card -->
-                <div
-                  class="w-40 h-40 rounded-xl bg-gradient-to-br from-emerald-400 to-teal-700 shadow-[0_0_25px_rgba(16,185,129,0.3)] group-hover:shadow-[0_0_40px_rgba(16,185,129,0.6)] animate-float flex flex-col items-center justify-center border border-emerald-300/30 transition-all duration-500"
-                >
-                  <i
-                    class="fab fa-ethereum text-5xl text-white/80 mb-2 group-hover:scale-110 transition-transform duration-500"
-                  ></i>
-                  <span class="text-white/90 font-mono text-xs tracking-widest font-bold">ASSET #042</span>
+                <img
+                  src="./amandigital.webp"
+                  alt="School website preview"
+                  class="absolute inset-0 w-full h-full object-cover"
+                />
+                <div class="absolute top-4 left-4 text-slate-400 text-xs font-bold uppercase flex items-center gap-2">
+                  <i class="fas fa-school text-emerald-500"></i> Educational
                 </div>
               </div>
               <!-- Info -->
               <div class="p-6 flex-1 flex flex-col justify-between">
                 <div>
                   <h3 class="text-2xl font-bold text-white mb-2 group-hover:text-brand transition-colors">
-                    Web3 NFT Market
+                    Aman Digital
                   </h3>
                   <p class="text-gray-400 text-sm mb-4">
-                    Decentralized application UI for minting and trading digital assets with glowing aesthetics.
+                    Knowledge about digital users in Indonesia when there are criminals in the criminal space
                   </p>
                 </div>
                 <div>
                   <div class="flex flex-wrap gap-2 mb-4">
                     <span
                       class="text-xs font-medium px-2.5 py-1 bg-pureBlack border border-brand/30 text-brand-light rounded-full"
-                      >Next.js</span
+                      >React</span
                     >
                     <span
                       class="text-xs font-medium px-2.5 py-1 bg-pureBlack border border-brand/30 text-brand-light rounded-full"
-                      >Solidity</span
+                      >Tailwind</span
                     >
                   </div>
-                  <a href="#" class="text-brand hover:text-brand-light font-medium text-sm flex items-center gap-1">
-                    View Project <i class="fas fa-arrow-right text-xs"></i>
+                  <a
+                    href="https://www.amandigital.org"
+                    target="_blank"
+                    class="text-brand hover:text-brand-light font-medium text-sm flex items-center gap-1"
+                  >
+                    Visit Project <i class="fas fa-arrow-right text-xs"></i>
                   </a>
                 </div>
               </div>
             </div>
 
-            <!-- Project 3: TaskMaster Pro -->
+            <!-- Project 2 -->
             <div
               class="bg-pureBlack rounded-2xl overflow-hidden border border-brand-darker card-hover transition-all duration-300 group flex flex-col"
             >
               <!-- Direct UI Preview -->
-              <div class="h-56 bg-slate-100 relative overflow-hidden flex gap-3 p-4 border-b border-brand/20">
-                <!-- Kanban Column 1 -->
-                <div
-                  class="flex-1 bg-slate-200/70 rounded-lg p-2 flex flex-col gap-2 opacity-80 group-hover:opacity-100 transition-opacity duration-300"
-                >
-                  <div class="h-1.5 w-1/3 bg-slate-400 rounded-full mb-1"></div>
-                  <div
-                    class="bg-white p-3 rounded shadow-sm group-hover:-translate-y-1 transition-transform duration-300"
-                  >
-                    <div class="h-2 w-3/4 bg-slate-200 rounded mb-2"></div>
-                    <div class="h-2 w-1/2 bg-emerald-200 rounded"></div>
-                  </div>
-                  <div
-                    class="bg-white p-3 rounded shadow-sm group-hover:-translate-y-1 transition-transform duration-300 delay-75"
-                  >
-                    <div class="h-2 w-full bg-slate-200 rounded mb-2"></div>
-                    <div class="w-6 h-1 bg-red-400 rounded-full"></div>
-                  </div>
-                </div>
-                <!-- Kanban Column 2 -->
-                <div
-                  class="flex-1 bg-emerald-50 rounded-lg p-2 flex flex-col gap-2 border border-emerald-100 opacity-80 group-hover:opacity-100 transition-opacity duration-300 delay-100"
-                >
-                  <div class="h-1.5 w-1/2 bg-emerald-400 rounded-full mb-1"></div>
-                  <div
-                    class="bg-white p-3 rounded shadow-sm border-l-2 border-emerald-500 group-hover:-translate-y-1 transition-transform duration-300 delay-150"
-                  >
-                    <div class="h-2 w-5/6 bg-slate-200 rounded mb-3"></div>
-                    <div class="h-4 w-4 rounded-full bg-emerald-400 ml-auto"></div>
-                  </div>
+              <div
+                class="h-56 bg-gray-950 relative overflow-hidden flex items-center justify-center border-b border-brand/20"
+              >
+                <img
+                  src="./undangan.webp"
+                  alt="School website preview"
+                  class="absolute inset-0 w-full h-full object-cover"
+                />
+                <div class="absolute top-4 left-4 text-slate-400 text-xs font-bold uppercase flex items-center gap-2">
+                  <i class="fas fa-school text-emerald-500"></i> Educational
                 </div>
               </div>
               <!-- Info -->
               <div class="p-6 flex-1 flex flex-col justify-between">
                 <div>
                   <h3 class="text-2xl font-bold text-white mb-2 group-hover:text-brand transition-colors">
-                    TaskMaster Pro
+                    Fake Invitation for Educational Purpose
                   </h3>
                   <p class="text-gray-400 text-sm mb-4">
-                    Productivity application featuring a drag-and-drop Kanban board architecture.
+                    A fake invitation website for educational purposes, to show how easy it is to create a fake
+                    invitation website and you must avoid it
                   </p>
                 </div>
                 <div>
                   <div class="flex flex-wrap gap-2 mb-4">
                     <span
                       class="text-xs font-medium px-2.5 py-1 bg-pureBlack border border-brand/30 text-brand-light rounded-full"
-                      >Vue.js</span
+                      >React</span
                     >
                     <span
                       class="text-xs font-medium px-2.5 py-1 bg-pureBlack border border-brand/30 text-brand-light rounded-full"
-                      >CSS Grid</span
+                      >Tailwind</span
+                    >
+                    <span
+                      class="text-xs font-medium px-2.5 py-1 bg-pureBlack border border-brand/30 text-brand-light rounded-full"
+                      >Postgres</span
                     >
                   </div>
-                  <a href="#" class="text-brand hover:text-brand-light font-medium text-sm flex items-center gap-1">
-                    View Project <i class="fas fa-arrow-right text-xs"></i>
+                  <a
+                    href="https://undangan.amandigital.org"
+                    target="_blank"
+                    class="text-brand hover:text-brand-light font-medium text-sm flex items-center gap-1"
+                  >
+                    Visit Project <i class="fas fa-arrow-right text-xs"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Project 3 -->
+            <div
+              class="bg-pureBlack rounded-2xl overflow-hidden border border-brand-darker card-hover transition-all duration-300 group flex flex-col"
+            >
+              <!-- Direct UI Preview -->
+              <div
+                class="h-56 bg-gray-950 relative overflow-hidden flex items-center justify-center border-b border-brand/20"
+              >
+                <img
+                  src="./dev.webp"
+                  alt="School website preview"
+                  class="absolute inset-0 w-full h-full object-cover"
+                />
+                <div class="absolute top-4 left-4 text-slate-400 text-xs font-bold uppercase flex items-center gap-2">
+                  <i class="fas fa-school text-emerald-500"></i> Tools
+                </div>
+              </div>
+              <!-- Info -->
+              <div class="p-6 flex-1 flex flex-col justify-between">
+                <div>
+                  <h3 class="text-2xl font-bold text-white mb-2 group-hover:text-brand transition-colors">
+                    My Tools Dashboard
+                  </h3>
+                  <p class="text-gray-400 text-sm mb-4">Productivity tools I use every day</p>
+                </div>
+                <div>
+                  <div class="flex flex-wrap gap-2 mb-4">
+                    <span
+                      class="text-xs font-medium px-2.5 py-1 bg-pureBlack border border-brand/30 text-brand-light rounded-full"
+                      >Astro</span
+                    >
+                    <span
+                      class="text-xs font-medium px-2.5 py-1 bg-pureBlack border border-brand/30 text-brand-light rounded-full"
+                      >Svelte</span
+                    >
+                    <span
+                      class="text-xs font-medium px-2.5 py-1 bg-pureBlack border border-brand/30 text-brand-light rounded-full"
+                      >React</span
+                    >
+                    <span
+                      class="text-xs font-medium px-2.5 py-1 bg-pureBlack border border-brand/30 text-brand-light rounded-full"
+                      >Hermes (Pyth Network)</span
+                    >
+                  </div>
+                  <a
+                    href="https://dev.syamsulbahtiar.com"
+                    target="_blank"
+                    class="text-brand hover:text-brand-light font-medium text-sm flex items-center gap-1"
+                  >
+                    Visit Project <i class="fas fa-arrow-right text-xs"></i>
                   </a>
                 </div>
               </div>
@@ -534,7 +657,7 @@
                 <div
                   class="px-6 py-3 bg-pureBlack/50 border border-brand border-opacity-30 rounded-full flex items-center gap-2 hover:border-brand-light transition-colors"
                 >
-                  <i class="fab fa-github-alt text-gray-200 text-xl"></i>
+                  <i class="fab fa-github text-gray-200 text-xl"></i>
                   <span class="text-gray-200 font-medium">GitHub</span>
                 </div>
 
@@ -559,12 +682,6 @@
                 <div
                   class="px-6 py-3 bg-pureBlack/50 border border-brand border-opacity-30 rounded-full flex items-center gap-2 hover:border-brand-light transition-colors"
                 >
-                  <i class="fas fa-gear text-green-600 text-xl"></i>
-                  <span class="text-gray-200 font-medium">Microservices</span>
-                </div>
-                <div
-                  class="px-6 py-3 bg-pureBlack/50 border border-brand border-opacity-30 rounded-full flex items-center gap-2 hover:border-brand-light transition-colors"
-                >
                   <i class="fas fa-dharmachakra text-blue-500 text-xl"></i>
                   <span class="text-gray-200 font-medium">Kubernetes</span>
                 </div>
@@ -582,103 +699,91 @@
         >
           <div class="text-center mb-16">
             <h2 class="text-4xl font-bold mb-4 text-white">Get In <span class="text-brand">Touch</span></h2>
-            <p class="text-gray-300">Have a project in mind or just want to say hi? Send me a message!</p>
+            <p class="text-gray-300">You can find me on these platforms. Let's connect and build something amazing!</p>
           </div>
 
-          <form
-            class="space-y-6 bg-pureBlack/60 p-8 rounded-2xl shadow-sm border border-brand/20"
-            onsubmit="
-              event.preventDefault();
-              showMessage();
-            "
-          >
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div>
-                <label for="name" class="block text-sm font-medium text-gray-300 mb-2">Name</label>
-                <input
-                  type="text"
-                  id="name"
-                  class="w-full px-4 py-3 bg-offBlack text-white rounded-lg border border-brand/30 focus:outline-none focus:ring-2 focus:ring-brand focus:border-transparent transition-all placeholder-gray-600"
-                  placeholder="John Doe"
-                  required
-                />
-              </div>
-              <div>
-                <label for="email" class="block text-sm font-medium text-gray-300 mb-2">Email</label>
-                <input
-                  type="email"
-                  id="email"
-                  class="w-full px-4 py-3 bg-offBlack text-white rounded-lg border border-brand/30 focus:outline-none focus:ring-2 focus:ring-brand focus:border-transparent transition-all placeholder-gray-600"
-                  placeholder="john@example.com"
-                  required
-                />
-              </div>
-            </div>
-            <div>
-              <label for="subject" class="block text-sm font-medium text-gray-300 mb-2">Subject</label>
-              <input
-                type="text"
-                id="subject"
-                class="w-full px-4 py-3 bg-offBlack text-white rounded-lg border border-brand/30 focus:outline-none focus:ring-2 focus:ring-brand focus:border-transparent transition-all placeholder-gray-600"
-                placeholder="Project Inquiry"
-                required
-              />
-            </div>
-            <div>
-              <label for="message" class="block text-sm font-medium text-gray-300 mb-2">Message</label>
-              <textarea
-                id="message"
-                rows="5"
-                class="w-full px-4 py-3 bg-offBlack text-white rounded-lg border border-brand/30 focus:outline-none focus:ring-2 focus:ring-brand focus:border-transparent transition-all resize-none placeholder-gray-600"
-                placeholder="Your message here..."
-                required
-              ></textarea>
-            </div>
-            <button
-              type="submit"
-              class="w-full bg-brand text-white font-bold py-4 rounded-lg hover:bg-brand-light transition-colors duration-300"
+          <div class="grid grid-cols-1 sm:grid-cols-1 gap-6 max-w-2xl mx-auto">
+            <!-- Email -->
+            <a
+              href="mailto:gmail@syamsulbahtiar.com"
+              class="flex items-center p-6 bg-pureBlack/60 border border-brand/20 rounded-2xl shadow-sm card-hover transition-all duration-300 group"
             >
-              Send Message
-            </button>
-            <div id="success-msg" class="hidden text-center text-brand font-medium mt-4">
-              Message sent successfully! I'll get back to you soon.
-            </div>
-          </form>
+              <div
+                class="w-14 h-14 bg-brand/10 rounded-full flex items-center justify-center mr-6 group-hover:bg-brand/20 transition-colors"
+              >
+                <i class="fas fa-envelope text-2xl text-brand"></i>
+              </div>
+              <div>
+                <h3 class="text-white font-bold text-lg">Email Me</h3>
+                <p class="text-gray-400 text-sm">gmail@syamsulbahtiar.com</p>
+              </div>
+            </a>
+
+            <!-- LinkedIn -->
+            <a
+              href="https://www.linkedin.com/in/syamsulbahtiar"
+              target="_blank"
+              class="flex items-center p-6 bg-pureBlack/60 border border-brand/20 rounded-2xl shadow-sm card-hover transition-all duration-300 group"
+            >
+              <div
+                class="w-14 h-14 bg-[#0A66C2]/10 rounded-full flex items-center justify-center mr-6 group-hover:bg-[#0A66C2]/20 transition-colors"
+              >
+                <i class="fab fa-linkedin-in text-2xl text-[#0A66C2]"></i>
+              </div>
+              <div>
+                <h3 class="text-white font-bold text-lg">LinkedIn</h3>
+                <p class="text-gray-400 text-sm">Let's connect</p>
+              </div>
+            </a>
+
+            <!-- GitHub -->
+            <a
+              href="https://github.com/yawnshi"
+              target="_blank"
+              class="flex items-center p-6 bg-pureBlack/60 border border-brand/20 rounded-2xl shadow-sm card-hover transition-all duration-300 group"
+            >
+              <div
+                class="w-14 h-14 bg-white/5 rounded-full flex items-center justify-center mr-6 group-hover:bg-white/10 transition-colors"
+              >
+                <i class="fab fa-github text-2xl text-white"></i>
+              </div>
+              <div>
+                <h3 class="text-white font-bold text-lg">GitHub</h3>
+                <p class="text-gray-400 text-sm">View my repos</p>
+              </div>
+            </a>
+
+            <!-- Twitter/X -->
+            <!-- <a
+              href="#"
+              target="_blank"
+              class="flex items-center p-6 bg-pureBlack/60 border border-brand/20 rounded-2xl shadow-sm card-hover transition-all duration-300 group"
+            >
+              <div
+                class="w-14 h-14 bg-[#1DA1F2]/10 rounded-full flex items-center justify-center mr-6 group-hover:bg-[#1DA1F2]/20 transition-colors"
+              >
+                <i class="fab fa-twitter text-2xl text-[#1DA1F2]"></i>
+              </div>
+              <div>
+                <h3 class="text-white font-bold text-lg">Twitter / X</h3>
+                <p class="text-gray-400 text-sm">Follow my updates</p>
+              </div>
+            </a> -->
+          </div>
         </div>
       </div>
     </section>
 
     <footer class="relative z-10 bg-pureBlack/90 backdrop-blur-md text-white py-12 border-t border-brand-darker">
-      <div class="max-w-7xl mx-auto px-6 md:px-12 flex flex-col md:flex-row justify-between items-center">
-        <div class="mb-6 md:mb-0">
-          <a href="#" class="text-2xl font-bold tracking-tighter">
-            <span class="text-white">Dev</span><span class="text-brand">.</span>
-          </a>
-          <p class="text-gray-500 text-sm mt-2">© 2026 Developer. All rights reserved.</p>
-        </div>
-
-        <div class="flex space-x-6">
-          <a href="#" class="text-gray-400 hover:text-brand transition-colors text-xl"><i class="fab fa-github"></i></a>
-          <a href="#" class="text-gray-400 hover:text-brand transition-colors text-xl"
-            ><i class="fab fa-linkedin"></i
-          ></a>
-          <a href="#" class="text-gray-400 hover:text-brand transition-colors text-xl"
-            ><i class="fab fa-twitter"></i
-          ></a>
-        </div>
+      <div class="max-w-7xl mx-auto px-6 md:px-12 flex flex-col justify-center items-center text-center">
+        <a href="#" class="text-2xl font-bold tracking-tighter mb-2">
+          <span class="text-white">SB</span><span class="text-brand">.</span>
+        </a>
+        <p class="text-gray-500 text-sm">© 2026 Developer. All rights reserved.</p>
       </div>
     </footer>
 
     <script>
-      // Form submission simulation
-      function showMessage() {
-        document.getElementById("success-msg").classList.remove("hidden");
-        setTimeout(() => {
-          document.getElementById("success-msg").classList.add("hidden");
-          document.querySelector("form").reset();
-        }, 3000);
-      }
-
       // --- HTML5 Canvas Network Animation ---
       const canvas = document.getElementById("particleCanvas");
       const ctx = canvas.getContext("2d");
@@ -1213,7 +1318,7 @@
             const targetElement = document.querySelector(targetId);
             if (targetElement) {
               // Calculate offset for the fixed navbar
-              const navHeight = document.getElementById("navbar").offsetHeight;
+              const navHeight = document.getElementById("navbar").offsetHeight - 70;
               const elementPosition = targetElement.getBoundingClientRect().top;
               const offsetPosition = elementPosition + window.pageYOffset - navHeight;
 
