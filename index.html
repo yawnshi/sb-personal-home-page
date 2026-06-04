@@ -10,7 +10,7 @@
     <meta name="msapplication-TileColor" content="#10b981" />
     <meta name="theme-color" content="#10b981" />
 
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="./src/style.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
     <link
@@ -19,74 +19,8 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
-
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            colors: {
-              brand: {
-                light: "#34d399", // Emerald 400
-                DEFAULT: "#10b981", // Emerald 500
-                dark: "#047857", // Emerald 700
-                darker: "#064e3b", // Emerald 900
-              },
-              pureBlack: "#000000",
-              offBlack: "#0a0a0a",
-            },
-            animation: {
-              "fade-in-up": "fadeInUp 0.8s ease-out forwards",
-              "pulse-slow": "pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite",
-              float: "float 3s ease-in-out infinite",
-            },
-            keyframes: {
-              fadeInUp: {
-                "0%": { opacity: "0", transform: "translateY(20px)" },
-                "100%": { opacity: "1", transform: "translateY(0)" },
-              },
-              float: {
-                "0%, 100%": { transform: "translateY(0)" },
-                "50%": { transform: "translateY(-10px)" },
-              },
-            },
-          },
-        },
-      };
-    </script>
-    <style>
-      body {
-        margin: 0;
-        overflow-x: hidden;
-      }
-      ::-webkit-scrollbar {
-        width: 8px;
-      }
-      ::-webkit-scrollbar-track {
-        background: #000;
-      }
-      ::-webkit-scrollbar-thumb {
-        background: #10b981;
-        border-radius: 4px;
-      }
-      ::-webkit-scrollbar-thumb:hover {
-        background: #34d399;
-      }
-
-      /* Glassmorphism utilities */
-      .glass {
-        background: rgba(10, 10, 10, 0.7);
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
-        border-bottom: 1px solid rgba(16, 185, 129, 0.1);
-      }
-      .card-hover:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 20px 40px -10px rgba(16, 185, 129, 0.15);
-        border-color: rgba(16, 185, 129, 0.4);
-      }
-    </style>
   </head>
-  <body class="bg-pureBlack text-white antialiased selection:bg-brand selection:text-white">
+  <body class="bg-pure-black text-white antialiased selection:bg-brand selection:text-white">
     <!-- Fixed Canvas for Animation Background on All Sections -->
     <canvas id="particleCanvas" class="fixed top-0 left-0 w-full h-full z-0 pointer-events-none"></canvas>
 
@@ -116,7 +50,7 @@
           >
           <a
             href="#contact"
-            class="inline-block text-brand border border-brand hover:bg-brand hover:text-pureBlack px-5 py-2 rounded-full transition-all text-sm font-medium uppercase tracking-widest whitespace-nowrap"
+            class="inline-block text-brand border border-brand hover:bg-brand hover:text-pure-black px-5 py-2 rounded-full transition-all text-sm font-medium uppercase tracking-widest whitespace-nowrap"
             >Contact</a
           >
         </div>
@@ -157,7 +91,7 @@
           </a>
           <a
             href="#projects"
-            class="bg-brand text-pureBlack font-bold px-8 py-4 rounded-full hover:bg-brand-light transition-all transform hover:scale-105"
+            class="bg-brand text-pure-black font-bold px-8 py-4 rounded-full hover:bg-brand-light transition-all transform hover:scale-105"
           >
             View My Work
           </a>
@@ -173,7 +107,7 @@
     <section id="about" class="relative min-h-screen flex items-center justify-center py-24 z-10">
       <div class="max-w-7xl mx-auto px-6 md:px-12 w-full">
         <div
-          class="bg-offBlack/80 backdrop-blur-md border border-brand/20 rounded-3xl p-8 md:p-12 shadow-[0_0_40px_rgba(16,185,129,0.05)] flex flex-col md:flex-row items-center gap-16"
+          class="bg-off-black/80 backdrop-blur-md border border-brand/20 rounded-3xl p-8 md:p-12 shadow-[0_0_40px_rgba(16,185,129,0.05)] flex flex-col md:flex-row items-center gap-16"
         >
           <!-- Interactive Game Side -->
           <div class="w-full md:w-1/2 relative group">
@@ -200,7 +134,7 @@
               <!-- Terminal Body / Game Container -->
               <div
                 id="gameContainer"
-                class="flex-1 bg-pureBlack relative flex items-center justify-center cursor-pointer overflow-hidden p-0 touch-none"
+                class="flex-1 bg-pure-black relative flex items-center justify-center cursor-pointer overflow-hidden p-0 touch-none"
               >
                 <!-- Three.js Canvas Container -->
                 <div id="canvas-container" class="w-full h-full absolute inset-0"></div>
@@ -208,7 +142,7 @@
                 <!-- Overlay: Start Screen -->
                 <div
                   id="gameOverlay"
-                  class="absolute inset-0 bg-pureBlack/80 flex flex-col items-center justify-center text-brand font-mono transition-opacity backdrop-blur-sm z-10"
+                  class="absolute inset-0 bg-pure-black/80 flex flex-col items-center justify-center text-brand font-mono transition-opacity backdrop-blur-sm z-10"
                 >
                   <i class="fas fa-rocket text-4xl mb-3 animate-pulse"></i>
                   <span class="text-lg font-bold">Space Explorer</span>
@@ -250,11 +184,11 @@
               <div class="flex items-center">
                 <a
                   href="#space"
-                  class="group flex items-center justify-center gap-2 w-full px-6 py-3 bg-pureBlack/60 border border-brand/30 text-white hover:border-brand hover:bg-brand hover:text-pureBlack rounded-xl transition-all duration-300 shadow-[0_0_15px_rgba(16,185,129,0.05)] hover:shadow-[0_0_25px_rgba(16,185,129,0.3)]"
+                  class="group flex items-center justify-center gap-2 w-full px-6 py-3 bg-pure-black/60 border border-brand/30 text-white hover:border-brand hover:bg-brand hover:text-pure-black rounded-xl transition-all duration-300 shadow-[0_0_15px_rgba(16,185,129,0.05)] hover:shadow-[0_0_25px_rgba(16,185,129,0.3)]"
                 >
                   <span class="font-bold text-sm tracking-widest uppercase">Personal Space</span>
                   <i
-                    class="fas fa-arrow-right text-brand group-hover:text-pureBlack group-hover:translate-x-1 transition-all"
+                    class="fas fa-arrow-right text-brand group-hover:text-pure-black group-hover:translate-x-1 transition-all"
                   ></i>
                 </a>
               </div>
@@ -267,7 +201,7 @@
     <section id="space" class="relative min-h-screen flex items-center justify-center py-24 z-10">
       <div class="max-w-7xl mx-auto px-6 md:px-12 w-full">
         <div
-          class="bg-offBlack/80 backdrop-blur-md border border-brand/20 rounded-3xl p-8 md:p-12 shadow-[0_0_40px_rgba(16,185,129,0.05)]"
+          class="bg-off-black/80 backdrop-blur-md border border-brand/20 rounded-3xl p-8 md:p-12 shadow-[0_0_40px_rgba(16,185,129,0.05)]"
         >
           <div class="text-center mb-16">
             <h2 class="text-4xl font-bold mb-4 text-white">Personal <span class="text-brand">Space</span></h2>
@@ -277,7 +211,7 @@
           <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
             <!-- Personal Section -->
             <div
-              class="bg-pureBlack rounded-2xl overflow-hidden border border-brand-darker p-6 card-hover transition-all duration-300"
+              class="bg-pure-black rounded-2xl overflow-hidden border border-brand-darker p-6 card-hover transition-all duration-300"
             >
               <div class="flex items-center gap-3 mb-6">
                 <div class="w-10 h-10 rounded-full bg-brand/10 flex items-center justify-center">
@@ -285,7 +219,7 @@
                 </div>
                 <h3 class="text-xl font-bold text-white">On Repeat</h3>
               </div>
-              <p class="text-gray-400 text-sm mb-6">My anti-mainstream music that i listen to</p>
+              <p class="text-gray-400 text-sm mb-6">My anti-mainstream playlist</p>
 
               <!-- YouTube Embed -->
               <div
@@ -314,7 +248,7 @@
 
             <!-- Mainstream Section -->
             <div
-              class="bg-pureBlack rounded-2xl overflow-hidden border border-brand-darker p-6 card-hover transition-all duration-300"
+              class="bg-pure-black rounded-2xl overflow-hidden border border-brand-darker p-6 card-hover transition-all duration-300"
             >
               <div class="flex items-center gap-3 mb-6">
                 <div class="w-10 h-10 rounded-full bg-brand/10 flex items-center justify-center">
@@ -330,7 +264,7 @@
               >
                 <iframe
                   class="absolute top-0 left-0 w-full h-full"
-                  src="https://www.youtube.com/embed/bUX8MDNQda4"
+                  src="https://www.youtube.com/embed/videoseries?si=lIUtmAs_wbRmAu7a&amp;list=PLPirW_3Fhee9Iqfah08npjgMtVpjFsN93"
                   title="YouTube video player"
                   frameborder="0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -358,7 +292,7 @@
     <section id="projects" class="relative min-h-screen flex items-center justify-center py-24 z-10">
       <div class="max-w-7xl mx-auto px-6 md:px-12 w-full">
         <div
-          class="bg-offBlack/80 backdrop-blur-md border border-brand/20 rounded-3xl p-8 md:p-12 shadow-[0_0_40px_rgba(16,185,129,0.05)]"
+          class="bg-off-black/80 backdrop-blur-md border border-brand/20 rounded-3xl p-8 md:p-12 shadow-[0_0_40px_rgba(16,185,129,0.05)]"
         >
           <div class="text-center mb-16">
             <h2 class="text-4xl font-bold mb-4 text-white">Featured <span class="text-brand">Projects</span></h2>
@@ -370,7 +304,7 @@
           <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
             <!-- Project 1 -->
             <div
-              class="bg-pureBlack rounded-2xl overflow-hidden border border-brand-darker card-hover transition-all duration-300 group flex flex-col"
+              class="bg-pure-black rounded-2xl overflow-hidden border border-brand-darker card-hover transition-all duration-300 group flex flex-col"
             >
               <!-- Direct UI Preview -->
               <div
@@ -398,19 +332,19 @@
                 <div>
                   <div class="flex flex-wrap gap-2 mb-4">
                     <span
-                      class="text-xs font-medium px-2.5 py-1 bg-pureBlack border border-brand/30 text-brand-light rounded-full"
+                      class="text-xs font-medium px-2.5 py-1 bg-pure-black border border-brand/30 text-brand-light rounded-full"
                       >React</span
                     >
                     <span
-                      class="text-xs font-medium px-2.5 py-1 bg-pureBlack border border-brand/30 text-brand-light rounded-full"
+                      class="text-xs font-medium px-2.5 py-1 bg-pure-black border border-brand/30 text-brand-light rounded-full"
                       >Tailwind</span
                     >
                     <span
-                      class="text-xs font-medium px-2.5 py-1 bg-pureBlack border border-brand/30 text-brand-light rounded-full"
+                      class="text-xs font-medium px-2.5 py-1 bg-pure-black border border-brand/30 text-brand-light rounded-full"
                       >Codeigniter 3</span
                     >
                     <span
-                      class="text-xs font-medium px-2.5 py-1 bg-pureBlack border border-brand/30 text-brand-light rounded-full"
+                      class="text-xs font-medium px-2.5 py-1 bg-pure-black border border-brand/30 text-brand-light rounded-full"
                       >MySQL</span
                     >
                   </div>
@@ -427,7 +361,7 @@
 
             <!-- Project 2 -->
             <div
-              class="bg-pureBlack rounded-2xl overflow-hidden border border-brand-darker card-hover transition-all duration-300 group flex flex-col"
+              class="bg-pure-black rounded-2xl overflow-hidden border border-brand-darker card-hover transition-all duration-300 group flex flex-col"
             >
               <!-- Direct UI Preview -->
               <div
@@ -455,11 +389,11 @@
                 <div>
                   <div class="flex flex-wrap gap-2 mb-4">
                     <span
-                      class="text-xs font-medium px-2.5 py-1 bg-pureBlack border border-brand/30 text-brand-light rounded-full"
+                      class="text-xs font-medium px-2.5 py-1 bg-pure-black border border-brand/30 text-brand-light rounded-full"
                       >React</span
                     >
                     <span
-                      class="text-xs font-medium px-2.5 py-1 bg-pureBlack border border-brand/30 text-brand-light rounded-full"
+                      class="text-xs font-medium px-2.5 py-1 bg-pure-black border border-brand/30 text-brand-light rounded-full"
                       >Tailwind</span
                     >
                   </div>
@@ -476,7 +410,7 @@
 
             <!-- Project 2 -->
             <div
-              class="bg-pureBlack rounded-2xl overflow-hidden border border-brand-darker card-hover transition-all duration-300 group flex flex-col"
+              class="bg-pure-black rounded-2xl overflow-hidden border border-brand-darker card-hover transition-all duration-300 group flex flex-col"
             >
               <!-- Direct UI Preview -->
               <div
@@ -505,19 +439,19 @@
                 <div>
                   <div class="flex flex-wrap gap-2 mb-4">
                     <span
-                      class="text-xs font-medium px-2.5 py-1 bg-pureBlack border border-brand/30 text-brand-light rounded-full"
+                      class="text-xs font-medium px-2.5 py-1 bg-pure-black border border-brand/30 text-brand-light rounded-full"
                       >React</span
                     >
                     <span
-                      class="text-xs font-medium px-2.5 py-1 bg-pureBlack border border-brand/30 text-brand-light rounded-full"
+                      class="text-xs font-medium px-2.5 py-1 bg-pure-black border border-brand/30 text-brand-light rounded-full"
                       >Tailwind</span
                     >
                     <span
-                      class="text-xs font-medium px-2.5 py-1 bg-pureBlack border border-brand/30 text-brand-light rounded-full"
+                      class="text-xs font-medium px-2.5 py-1 bg-pure-black border border-brand/30 text-brand-light rounded-full"
                       >PHP</span
                     >
                     <span
-                      class="text-xs font-medium px-2.5 py-1 bg-pureBlack border border-brand/30 text-brand-light rounded-full"
+                      class="text-xs font-medium px-2.5 py-1 bg-pure-black border border-brand/30 text-brand-light rounded-full"
                       >Postgres</span
                     >
                   </div>
@@ -534,7 +468,7 @@
 
             <!-- Project 3 -->
             <div
-              class="bg-pureBlack rounded-2xl overflow-hidden border border-brand-darker card-hover transition-all duration-300 group flex flex-col"
+              class="bg-pure-black rounded-2xl overflow-hidden border border-brand-darker card-hover transition-all duration-300 group flex flex-col"
             >
               <!-- Direct UI Preview -->
               <div
@@ -562,23 +496,23 @@
                 <div>
                   <div class="flex flex-wrap gap-2 mb-4">
                     <span
-                      class="text-xs font-medium px-2.5 py-1 bg-pureBlack border border-brand/30 text-brand-light rounded-full"
+                      class="text-xs font-medium px-2.5 py-1 bg-pure-black border border-brand/30 text-brand-light rounded-full"
                       >Astro</span
                     >
                     <span
-                      class="text-xs font-medium px-2.5 py-1 bg-pureBlack border border-brand/30 text-brand-light rounded-full"
+                      class="text-xs font-medium px-2.5 py-1 bg-pure-black border border-brand/30 text-brand-light rounded-full"
                       >Svelte</span
                     >
                     <span
-                      class="text-xs font-medium px-2.5 py-1 bg-pureBlack border border-brand/30 text-brand-light rounded-full"
+                      class="text-xs font-medium px-2.5 py-1 bg-pure-black border border-brand/30 text-brand-light rounded-full"
                       >React</span
                     >
                     <span
-                      class="text-xs font-medium px-2.5 py-1 bg-pureBlack border border-brand/30 text-brand-light rounded-full"
+                      class="text-xs font-medium px-2.5 py-1 bg-pure-black border border-brand/30 text-brand-light rounded-full"
                       >Tailwind</span
                     >
                     <span
-                      class="text-xs font-medium px-2.5 py-1 bg-pureBlack border border-brand/30 text-brand-light rounded-full"
+                      class="text-xs font-medium px-2.5 py-1 bg-pure-black border border-brand/30 text-brand-light rounded-full"
                       >Hermes (Pyth Network)</span
                     >
                   </div>
@@ -600,7 +534,7 @@
     <section id="skills" class="relative min-h-screen flex items-center justify-center py-24 z-10">
       <div class="max-w-7xl mx-auto px-6 md:px-12 w-full relative">
         <div
-          class="bg-offBlack/80 backdrop-blur-md border border-brand/20 rounded-3xl p-8 md:p-12 shadow-[0_0_40px_rgba(16,185,129,0.05)] relative overflow-hidden"
+          class="bg-off-black/80 backdrop-blur-md border border-brand/20 rounded-3xl p-8 md:p-12 shadow-[0_0_40px_rgba(16,185,129,0.05)] relative overflow-hidden"
         >
           <!-- Abstract green shapes -->
           <div
@@ -623,92 +557,92 @@
               <div class="flex flex-wrap gap-4">
                 <!-- Skill Tags -->
                 <div
-                  class="px-6 py-3 bg-pureBlack/50 border border-brand border-opacity-30 rounded-full flex items-center gap-2 hover:border-brand-light transition-colors"
+                  class="px-6 py-3 bg-pure-black/50 border border-brand border-opacity-30 rounded-full flex items-center gap-2 hover:border-brand-light transition-colors"
                 >
                   <i class="fab fa-html5 text-orange-500 text-xl"></i>
                   <span class="text-gray-200 font-medium">HTML</span>
                 </div>
                 <div
-                  class="px-6 py-3 bg-pureBlack/50 border border-brand border-opacity-30 rounded-full flex items-center gap-2 hover:border-brand-light transition-colors"
+                  class="px-6 py-3 bg-pure-black/50 border border-brand border-opacity-30 rounded-full flex items-center gap-2 hover:border-brand-light transition-colors"
                 >
                   <i class="fab fa-css text-blue-500 text-xl"></i>
                   <span class="text-gray-200 font-medium">CSS & Tailwind</span>
                 </div>
                 <div
-                  class="px-6 py-3 bg-pureBlack/50 border border-brand border-opacity-30 rounded-full flex items-center gap-2 hover:border-brand-light transition-colors"
+                  class="px-6 py-3 bg-pure-black/50 border border-brand border-opacity-30 rounded-full flex items-center gap-2 hover:border-brand-light transition-colors"
                 >
                   <i class="fab fa-php text-indigo-400 text-xl"></i>
                   <span class="text-gray-200 font-medium">PHP & Codeigniter</span>
                 </div>
                 <div
-                  class="px-6 py-3 bg-pureBlack/50 border border-brand border-opacity-30 rounded-full flex items-center gap-2 hover:border-brand-light transition-colors"
+                  class="px-6 py-3 bg-pure-black/50 border border-brand border-opacity-30 rounded-full flex items-center gap-2 hover:border-brand-light transition-colors"
                 >
                   <i class="fab fa-laravel text-orange-600 text-xl"></i>
                   <span class="text-gray-200 font-medium">Laravel</span>
                 </div>
                 <div
-                  class="px-6 py-3 bg-pureBlack/50 border border-brand border-opacity-30 rounded-full flex items-center gap-2 hover:border-brand-light transition-colors"
+                  class="px-6 py-3 bg-pure-black/50 border border-brand border-opacity-30 rounded-full flex items-center gap-2 hover:border-brand-light transition-colors"
                 >
                   <i class="fab fa-js text-yellow-400 text-xl"></i>
                   <span class="text-gray-200 font-medium">JavaScript</span>
                 </div>
                 <div
-                  class="px-6 py-3 bg-pureBlack/50 border border-brand border-opacity-30 rounded-full flex items-center gap-2 hover:border-brand-light transition-colors"
+                  class="px-6 py-3 bg-pure-black/50 border border-brand border-opacity-30 rounded-full flex items-center gap-2 hover:border-brand-light transition-colors"
                 >
                   <i class="fab fa-react text-cyan-400 text-xl"></i>
                   <span class="text-gray-200 font-medium">React</span>
                 </div>
                 <div
-                  class="px-6 py-3 bg-pureBlack/50 border border-brand border-opacity-30 rounded-full flex items-center gap-2 hover:border-brand-light transition-colors"
+                  class="px-6 py-3 bg-pure-black/50 border border-brand border-opacity-30 rounded-full flex items-center gap-2 hover:border-brand-light transition-colors"
                 >
                   <i class="fab fa-node-js text-green-500 text-xl"></i>
                   <span class="text-gray-200 font-medium">Node.js</span>
                 </div>
                 <div
-                  class="px-6 py-3 bg-pureBlack/50 border border-brand border-opacity-30 rounded-full flex items-center gap-2 hover:border-brand-light transition-colors"
+                  class="px-6 py-3 bg-pure-black/50 border border-brand border-opacity-30 rounded-full flex items-center gap-2 hover:border-brand-light transition-colors"
                 >
                   <i class="fab fa-golang text-cyan-400 text-xl"></i>
                   <span class="text-gray-200 font-medium">Golang</span>
                 </div>
                 <div
-                  class="px-6 py-3 bg-pureBlack/50 border border-brand border-opacity-30 rounded-full flex items-center gap-2 hover:border-brand-light transition-colors"
+                  class="px-6 py-3 bg-pure-black/50 border border-brand border-opacity-30 rounded-full flex items-center gap-2 hover:border-brand-light transition-colors"
                 >
                   <i class="fab fa-rust text-gray-300 text-xl"></i>
                   <span class="text-gray-200 font-medium">Rust</span>
                 </div>
                 <div
-                  class="px-6 py-3 bg-pureBlack/50 border border-brand border-opacity-30 rounded-full flex items-center gap-2 hover:border-brand-light transition-colors"
+                  class="px-6 py-3 bg-pure-black/50 border border-brand border-opacity-30 rounded-full flex items-center gap-2 hover:border-brand-light transition-colors"
                 >
                   <i class="fab fa-git-alt text-red-500 text-xl"></i>
                   <span class="text-gray-200 font-medium">Git</span>
                 </div>
                 <div
-                  class="px-6 py-3 bg-pureBlack/50 border border-brand border-opacity-30 rounded-full flex items-center gap-2 hover:border-brand-light transition-colors"
+                  class="px-6 py-3 bg-pure-black/50 border border-brand border-opacity-30 rounded-full flex items-center gap-2 hover:border-brand-light transition-colors"
                 >
                   <i class="fab fa-github text-gray-200 text-xl"></i>
                   <span class="text-gray-200 font-medium">GitHub</span>
                 </div>
 
                 <div
-                  class="px-6 py-3 bg-pureBlack/50 border border-brand border-opacity-30 rounded-full flex items-center gap-2 hover:border-brand-light transition-colors"
+                  class="px-6 py-3 bg-pure-black/50 border border-brand border-opacity-30 rounded-full flex items-center gap-2 hover:border-brand-light transition-colors"
                 >
                   <i class="fab fa-gitlab text-orange-600 text-xl"></i>
                   <span class="text-gray-200 font-medium">GitLab</span>
                 </div>
                 <div
-                  class="px-6 py-3 bg-pureBlack/50 border border-brand border-opacity-30 rounded-full flex items-center gap-2 hover:border-brand-light transition-colors"
+                  class="px-6 py-3 bg-pure-black/50 border border-brand border-opacity-30 rounded-full flex items-center gap-2 hover:border-brand-light transition-colors"
                 >
                   <i class="fas fa-database text-gray-400 text-xl"></i>
                   <span class="text-gray-200 font-medium">SQL & NoSQL</span>
                 </div>
                 <div
-                  class="px-6 py-3 bg-pureBlack/50 border border-brand border-opacity-30 rounded-full flex items-center gap-2 hover:border-brand-light transition-colors"
+                  class="px-6 py-3 bg-pure-black/50 border border-brand border-opacity-30 rounded-full flex items-center gap-2 hover:border-brand-light transition-colors"
                 >
                   <i class="fab fa-docker text-blue-400 text-xl"></i>
                   <span class="text-gray-200 font-medium">Docker</span>
                 </div>
                 <div
-                  class="px-6 py-3 bg-pureBlack/50 border border-brand border-opacity-30 rounded-full flex items-center gap-2 hover:border-brand-light transition-colors"
+                  class="px-6 py-3 bg-pure-black/50 border border-brand border-opacity-30 rounded-full flex items-center gap-2 hover:border-brand-light transition-colors"
                 >
                   <i class="fas fa-dharmachakra text-blue-500 text-xl"></i>
                   <span class="text-gray-200 font-medium">Kubernetes</span>
@@ -723,7 +657,7 @@
     <section id="contact" class="relative min-h-screen flex items-center justify-center py-24 z-10">
       <div class="max-w-4xl mx-auto px-6 md:px-12 w-full">
         <div
-          class="bg-offBlack/80 backdrop-blur-md border border-brand/20 rounded-3xl p-8 md:p-12 shadow-[0_0_40px_rgba(16,185,129,0.05)]"
+          class="bg-off-black/80 backdrop-blur-md border border-brand/20 rounded-3xl p-8 md:p-12 shadow-[0_0_40px_rgba(16,185,129,0.05)]"
         >
           <div class="text-center mb-16">
             <h2 class="text-4xl font-bold mb-4 text-white">Get In <span class="text-brand">Touch</span></h2>
@@ -734,7 +668,7 @@
             <!-- Email -->
             <a
               href="mailto:gmail@syamsulbahtiar.com"
-              class="flex items-center p-6 bg-pureBlack/60 border border-brand/20 rounded-2xl shadow-sm card-hover transition-all duration-300 group"
+              class="flex items-center p-6 bg-pure-black/60 border border-brand/20 rounded-2xl shadow-sm card-hover transition-all duration-300 group"
             >
               <div
                 class="w-14 h-14 bg-brand/10 rounded-full flex items-center justify-center mr-6 group-hover:bg-brand/20 transition-colors"
@@ -751,7 +685,7 @@
             <a
               href="https://www.linkedin.com/in/syamsulbahtiar"
               target="_blank"
-              class="flex items-center p-6 bg-pureBlack/60 border border-brand/20 rounded-2xl shadow-sm card-hover transition-all duration-300 group"
+              class="flex items-center p-6 bg-pure-black/60 border border-brand/20 rounded-2xl shadow-sm card-hover transition-all duration-300 group"
             >
               <div
                 class="w-14 h-14 bg-[#0A66C2]/10 rounded-full flex items-center justify-center mr-6 group-hover:bg-[#0A66C2]/20 transition-colors"
@@ -768,7 +702,7 @@
             <a
               href="https://github.com/yawnshi"
               target="_blank"
-              class="flex items-center p-6 bg-pureBlack/60 border border-brand/20 rounded-2xl shadow-sm card-hover transition-all duration-300 group"
+              class="flex items-center p-6 bg-pure-black/60 border border-brand/20 rounded-2xl shadow-sm card-hover transition-all duration-300 group"
             >
               <div
                 class="w-14 h-14 bg-white/5 rounded-full flex items-center justify-center mr-6 group-hover:bg-white/10 transition-colors"
@@ -785,7 +719,7 @@
             <!-- <a
               href="#"
               target="_blank"
-              class="flex items-center p-6 bg-pureBlack/60 border border-brand/20 rounded-2xl shadow-sm card-hover transition-all duration-300 group"
+              class="flex items-center p-6 bg-pure-black/60 border border-brand/20 rounded-2xl shadow-sm card-hover transition-all duration-300 group"
             >
               <div
                 class="w-14 h-14 bg-[#1DA1F2]/10 rounded-full flex items-center justify-center mr-6 group-hover:bg-[#1DA1F2]/20 transition-colors"
@@ -802,7 +736,7 @@
       </div>
     </section>
 
-    <footer class="relative z-10 bg-pureBlack/90 backdrop-blur-md text-white py-12 border-t border-brand-darker">
+    <footer class="relative z-10 bg-pure-black/90 backdrop-blur-md text-white py-12 border-t border-brand-darker">
       <div class="max-w-7xl mx-auto px-6 md:px-12 flex justify-between">
         <a href="#" class="text-2xl font-bold tracking-tighter mb-2">
           <span class="text-white">SB</span><span class="text-brand">.</span>
@@ -1131,3 +1065,4 @@
     </script>
   </body>
 </html>
+

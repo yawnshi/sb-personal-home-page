@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "description": "Personal Home Page for Syamsul Bahtiar",
   "main": "index.html",
+  "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -19,6 +20,8 @@
   "author": "Syamsul Bahtiar",
   "license": "MIT",
   "devDependencies": {
+    "@tailwindcss/vite": "^4.0.0",
+    "tailwindcss": "^4.0.0",
     "vite": "^5.2.11"
   }
 }

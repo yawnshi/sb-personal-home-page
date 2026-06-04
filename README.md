@@ -33,23 +33,26 @@ The background features an interactive HTML5 Canvas particle system:
 ## 🛠️ Stack & Technologies
 
 * **Core Structure & Layout:** HTML5 (Semantic tags), Vanilla Javascript (ES6+)
-* **Styling & UI:** Tailwind CSS (CDN-loaded with extended custom theme), Font Awesome v7 icons
+* **Styling & UI:** Tailwind CSS v4 (configured natively in stylesheet with `@tailwindcss/vite` plugin), Font Awesome v7 icons
 * **3D Engine:** Three.js (r128) & OrbitControls
-* **Hosting Friendly:** Static structure, ready to deploy to GitHub Pages, Netlify, or Vercel out of the box.
+* **Hosting Friendly:** High performance build compilation with Vite, ready to deploy.
 
 ---
 
 ## 📁 Directory Structure
 
 ```bash
-3dbackground/
-├── index.html           # Main application structure, layout, styles, and animation logic
+sb-personal-home-page/
+├── index.html           # Main application structure and layout (references style.css)
+├── src/
+│   └── style.css        # Tailwind CSS v4 imports, custom theme config, scrollbars & utilities
 ├── amandigital.webp     # Project preview: Aman Digital educational site
 ├── dev.webp             # Project preview: Developer Tools Dashboard
 ├── tarfalmadani.webp    # Project preview: Tarfal Madani Foundation site
 ├── undangan.webp        # Project preview: Educational invitation website demo
 ├── .gitignore           # File exclusion list for Git repository
 ├── package.json         # Development server config and dependencies
+├── vite.config.js       # Vite configuration with Tailwind CSS v4 integration
 └── LICENSE              # MIT Open-source license agreement
 ```
 
