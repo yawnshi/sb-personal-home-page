@@ -3,8 +3,16 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Portfolio | Creative Developer</title>
+    <title>Syamsul Bahtiar's Personal Home Page</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="./images/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="./images/apple-touch-icon.png" />
+    <meta name="msapplication-TileColor" content="#10b981" />
+    <meta name="theme-color" content="#10b981" />
+
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
@@ -124,41 +132,34 @@
 
     <section id="hero" class="relative min-h-screen flex items-center justify-center overflow-hidden z-10 py-24">
       <div class="text-center max-w-4xl mx-auto px-6 mt-16 pointer-events-none">
-        <p
-          class="text-brand-light font-semibold tracking-wider uppercase mb-4 opacity-0 animate-fade-in-up"
-          style="animation-delay: 0.2s"
-        >
-          Welcome to my digital space
-        </p>
         <h1
           class="text-5xl md:text-7xl font-extrabold mb-6 leading-tight opacity-0 animate-fade-in-up"
           style="animation-delay: 0.4s"
         >
-          Building
-          <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-light to-brand-dark">experiences</span>
-          that matter
+          Syamsul
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-light to-brand-dark">Bahtiar</span>
         </h1>
         <p
           class="text-lg md:text-xl text-gray-400 mb-10 max-w-2xl mx-auto opacity-0 animate-fade-in-up"
           style="animation-delay: 0.6s"
         >
-          I am a web developer specializing in building better digital experiences
+          Web developer that specializes in building better digital experiences
         </p>
         <div
           class="flex flex-col sm:flex-row gap-4 justify-center opacity-0 animate-fade-in-up pointer-events-auto"
           style="animation-delay: 0.8s"
         >
           <a
+            href="#about"
+            class="border border-gray-600 text-white font-bold px-8 py-4 rounded-full hover:border-brand hover:text-brand transition-all"
+          >
+            About Me
+          </a>
+          <a
             href="#projects"
             class="bg-brand text-pureBlack font-bold px-8 py-4 rounded-full hover:bg-brand-light transition-all transform hover:scale-105"
           >
             View My Work
-          </a>
-          <a
-            href="#contact"
-            class="border border-gray-600 text-white font-bold px-8 py-4 rounded-full hover:border-brand hover:text-brand transition-all"
-          >
-            Get in Touch
           </a>
         </div>
       </div>
@@ -182,7 +183,7 @@
             ></div>
 
             <div
-              class="relative bg-[#0d1117] rounded-xl border border-gray-800 shadow-2xl overflow-hidden h-full flex flex-col min-h-[350px]"
+              class="relative bg-[#0d1117] rounded-xl border border-gray-800 shadow-2xl overflow-hidden h-full flex flex-col min-h-[445px]"
             >
               <!-- Terminal Header -->
               <div class="flex items-center px-4 py-3 bg-[#161b22] border-b border-gray-800">
@@ -191,7 +192,7 @@
                   <div class="w-3 h-3 rounded-full bg-yellow-500/80"></div>
                   <div class="w-3 h-3 rounded-full bg-green-500/80"></div>
                 </div>
-                <div class="mx-auto text-xs text-gray-400 font-mono tracking-wider">dev_quest.exe</div>
+                <div class="mx-auto text-xs text-gray-400 font-mono tracking-wider">Space Explorer</div>
                 <div class="w-11"></div>
                 <!-- Spacer for centering -->
               </div>
@@ -199,44 +200,25 @@
               <!-- Terminal Body / Game Container -->
               <div
                 id="gameContainer"
-                class="flex-1 bg-pureBlack relative flex items-center justify-center cursor-pointer overflow-hidden p-4 touch-none"
+                class="flex-1 bg-pureBlack relative flex items-center justify-center cursor-pointer overflow-hidden p-0 touch-none"
               >
-                <canvas
-                  id="rpgCanvas"
-                  width="500"
-                  height="280"
-                  class="border border-brand/20 bg-[#050505] shadow-[0_0_15px_rgba(16,185,129,0.1)] rounded max-w-full h-auto"
-                ></canvas>
+                <!-- Three.js Canvas Container -->
+                <div id="canvas-container" class="w-full h-full absolute inset-0"></div>
 
                 <!-- Overlay: Start Screen -->
                 <div
                   id="gameOverlay"
                   class="absolute inset-0 bg-pureBlack/80 flex flex-col items-center justify-center text-brand font-mono transition-opacity backdrop-blur-sm z-10"
                 >
-                  <i class="fas fa-swords text-4xl mb-3 animate-pulse"></i>
-                  <span class="text-lg font-bold">Dev Quest</span>
-                  <span class="text-xs text-gray-400 mt-2 text-center px-4">Defeat the Bugs!</span>
+                  <i class="fas fa-rocket text-4xl mb-3 animate-pulse"></i>
+                  <span class="text-lg font-bold">Space Explorer</span>
+                  <span class="text-xs text-gray-400 mt-2 text-center px-4">Interactive 3D Solar System</span>
                   <span
-                    class="text-xs text-gray-500 mt-2 text-center px-4 font-bold border border-gray-700 rounded p-2 bg-gray-900/50"
+                    class="text-xs text-gray-500 mt-4 text-center px-4 font-bold border border-gray-700 rounded p-2 bg-gray-900/50"
                   >
-                    📱 Tap Left: Jump | Tap Right: Attack<br />
-                    💻 Up Arrow: Jump | Spacebar: Attack
+                    🖱️ Drag to Rotate | 📜 Scroll to Zoom<br />
+                    👆 Swipe to Rotate | 🤏 Pinch to Zoom
                   </span>
-                </div>
-
-                <!-- Overlay: Game Over -->
-                <div
-                  id="gameOverScreen"
-                  class="absolute inset-0 bg-pureBlack/90 flex flex-col items-center justify-center text-brand font-mono hidden z-20 backdrop-blur-sm"
-                >
-                  <span class="text-red-500 text-2xl font-bold mb-2">SYSTEM CRASHED</span>
-                  <span id="scoreDisplay" class="text-lg mb-4 text-white">Bugs Fixed: 0</span>
-                  <button
-                    id="restartBtn"
-                    class="px-6 py-2 border-2 border-brand text-brand font-bold hover:bg-brand hover:text-pureBlack rounded transition-colors text-sm uppercase tracking-widest z-30 relative"
-                  >
-                    Reboot
-                  </button>
                 </div>
               </div>
             </div>
@@ -254,15 +236,27 @@
             </p>
 
             <p class="text-gray-300 mb-8 leading-relaxed">
-              I enjoy learning new things outside my field, such as psychology and philosophy, through informal study.
-              This curiosity drives me to better understand human behavior and apply that knowledge to create more
-              intuitive and engaging digital experiences.
+              I also enjoy learning new things outside of my field, such as psychology and philosophy, surely through
+              informal study. This curiosity drives me to better understand human behavior and apply that knowledge to
+              create more intuitive and engaging digital experiences.
             </p>
 
             <div class="grid grid-cols-2 gap-6">
               <div class="border-l-4 border-brand pl-4">
                 <h3 class="text-3xl font-bold text-brand">5+</h3>
                 <p class="text-sm text-gray-400 font-medium">Years Experience</p>
+              </div>
+
+              <div class="flex items-center">
+                <a
+                  href="#space"
+                  class="group flex items-center justify-center gap-2 w-full px-6 py-3 bg-pureBlack/60 border border-brand/30 text-white hover:border-brand hover:bg-brand hover:text-pureBlack rounded-xl transition-all duration-300 shadow-[0_0_15px_rgba(16,185,129,0.05)] hover:shadow-[0_0_25px_rgba(16,185,129,0.3)]"
+                >
+                  <span class="font-bold text-sm tracking-widest uppercase">Personal Space</span>
+                  <i
+                    class="fas fa-arrow-right text-brand group-hover:text-pureBlack group-hover:translate-x-1 transition-all"
+                  ></i>
+                </a>
               </div>
             </div>
           </div>
@@ -277,9 +271,7 @@
         >
           <div class="text-center mb-16">
             <h2 class="text-4xl font-bold mb-4 text-white">Personal <span class="text-brand">Space</span></h2>
-            <p class="text-gray-400 max-w-2xl mx-auto">
-              A glimpse into what fuels my focus and creativity. Here's what I'm currently listening to and watching.
-            </p>
+            <p class="text-gray-400 max-w-2xl mx-auto">Something i like to share about my personal preferences</p>
           </div>
 
           <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -309,6 +301,15 @@
                 >
                 </iframe>
               </div>
+              <div class="mt-4 text-center">
+                <a
+                  href="https://www.youtube.com/playlist?list=PLPirW_3Fhee_pfal-zq34cbCP7FB9k4E4"
+                  target="_blank"
+                  class="mx-auto inline-block px-4 py-2 border border-brand text-brand rounded-lg text-sm font-medium"
+                >
+                  View full playlist on YouTube
+                </a>
+              </div>
             </div>
 
             <!-- Mainstream Section -->
@@ -317,7 +318,7 @@
             >
               <div class="flex items-center gap-3 mb-6">
                 <div class="w-10 h-10 rounded-full bg-brand/10 flex items-center justify-center">
-                  <i class="fas fa-microphone-alt text-brand text-lg"></i>
+                  <i class="fas fa-headphones-alt text-brand text-lg"></i>
                 </div>
                 <h3 class="text-xl font-bold text-white">Mainstream Music</h3>
               </div>
@@ -329,13 +330,23 @@
               >
                 <iframe
                   class="absolute top-0 left-0 w-full h-full"
-                  src="https://www.youtube.com/embed/videoseries?si=_DfDeOiUf9rA-NTz&amp;list=PLPirW_3Fhee9Iqfah08npjgMtVpjFsN93"
+                  src="https://www.youtube.com/embed/bUX8MDNQda4"
                   title="YouTube video player"
                   frameborder="0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowfullscreen
                 >
                 </iframe>
+              </div>
+
+              <div class="mt-4 text-center">
+                <a
+                  href="https://youtube.com/playlist?list=PLPirW_3Fhee9Iqfah08npjgMtVpjFsN93"
+                  target="_blank"
+                  class="mx-auto inline-block px-4 py-2 border border-brand text-brand rounded-lg text-sm font-medium"
+                >
+                  View full playlist on YouTube
+                </a>
               </div>
             </div>
           </div>
@@ -352,8 +363,7 @@
           <div class="text-center mb-16">
             <h2 class="text-4xl font-bold mb-4 text-white">Featured <span class="text-brand">Projects</span></h2>
             <p class="text-gray-400 max-w-2xl mx-auto">
-              A selection of my recent work, showcasing a range of skills and technologies. 
-              Click on "Visit Project" to see more details and live demos.
+              A selection of my recent work, showcasing a range of skills and technologies
             </p>
           </div>
 
@@ -394,6 +404,14 @@
                     <span
                       class="text-xs font-medium px-2.5 py-1 bg-pureBlack border border-brand/30 text-brand-light rounded-full"
                       >Tailwind</span
+                    >
+                    <span
+                      class="text-xs font-medium px-2.5 py-1 bg-pureBlack border border-brand/30 text-brand-light rounded-full"
+                      >Codeigniter 3</span
+                    >
+                    <span
+                      class="text-xs font-medium px-2.5 py-1 bg-pureBlack border border-brand/30 text-brand-light rounded-full"
+                      >MySQL</span
                     >
                   </div>
                   <a
@@ -496,6 +514,10 @@
                     >
                     <span
                       class="text-xs font-medium px-2.5 py-1 bg-pureBlack border border-brand/30 text-brand-light rounded-full"
+                      >PHP</span
+                    >
+                    <span
+                      class="text-xs font-medium px-2.5 py-1 bg-pureBlack border border-brand/30 text-brand-light rounded-full"
                       >Postgres</span
                     >
                   </div>
@@ -533,7 +555,9 @@
                   <h3 class="text-2xl font-bold text-white mb-2 group-hover:text-brand transition-colors">
                     My Tools Dashboard
                   </h3>
-                  <p class="text-gray-400 text-sm mb-4">Productivity tools I use every day</p>
+                  <p class="text-gray-400 text-sm mb-4">
+                    A dashboard to manage all the tools I use for development and productivity in one place
+                  </p>
                 </div>
                 <div>
                   <div class="flex flex-wrap gap-2 mb-4">
@@ -548,6 +572,10 @@
                     <span
                       class="text-xs font-medium px-2.5 py-1 bg-pureBlack border border-brand/30 text-brand-light rounded-full"
                       >React</span
+                    >
+                    <span
+                      class="text-xs font-medium px-2.5 py-1 bg-pureBlack border border-brand/30 text-brand-light rounded-full"
+                      >Tailwind</span
                     >
                     <span
                       class="text-xs font-medium px-2.5 py-1 bg-pureBlack border border-brand/30 text-brand-light rounded-full"
@@ -775,11 +803,11 @@
     </section>
 
     <footer class="relative z-10 bg-pureBlack/90 backdrop-blur-md text-white py-12 border-t border-brand-darker">
-      <div class="max-w-7xl mx-auto px-6 md:px-12 flex flex-col justify-center items-center text-center">
+      <div class="max-w-7xl mx-auto px-6 md:px-12 flex justify-between">
         <a href="#" class="text-2xl font-bold tracking-tighter mb-2">
           <span class="text-white">SB</span><span class="text-brand">.</span>
         </a>
-        <p class="text-gray-500 text-sm">© 2026 Developer. All rights reserved.</p>
+        <p class="text-gray-500 text-sm">© 2026 VenderGreat. All rights reserved.</p>
       </div>
     </footer>
 
@@ -921,386 +949,156 @@
       setCanvasSize();
       animate();
 
-      // --- 2D RPG Side Scroller (Dev Quest) Logic ---
-      const rpgCanvas = document.getElementById("rpgCanvas");
-      const gCtx = rpgCanvas.getContext("2d");
+      // --- 3D Space Explorer Logic ---
+      const spaceContainer = document.getElementById("canvas-container");
       const gameContainer = document.getElementById("gameContainer");
       const gameOverlay = document.getElementById("gameOverlay");
-      const gameOverScreen = document.getElementById("gameOverScreen");
-      const restartBtn = document.getElementById("restartBtn");
-      const scoreDisplay = document.getElementById("scoreDisplay");
 
-      let isPlaying = false;
-      let isGameOver = false;
-      let animationId;
-      let score = 0;
-      let frames = 0;
+      let spaceScene, spaceCamera, spaceRenderer, orbitControls;
+      let planets = [];
+      let isSpacePlaying = false;
 
-      // Game Entities
-      let hero;
-      let enemies = [];
-      let particles = [];
-      let backgroundCode = [];
+      function initSpace() {
+        spaceScene = new THREE.Scene();
+        spaceScene.background = new THREE.Color("#050505");
 
-      // Constants
-      const GRAVITY = 0.6;
-      const GROUND_Y = 230;
+        spaceCamera = new THREE.PerspectiveCamera(
+          45,
+          spaceContainer.clientWidth / spaceContainer.clientHeight,
+          0.1,
+          1000,
+        );
+        // Position camera to view the system nicely
+        spaceCamera.position.set(0, 50, 100);
 
-      class Hero {
-        constructor() {
-          this.width = 24;
-          this.height = 34;
-          this.x = 50;
-          this.y = GROUND_Y - this.height;
-          this.vy = 0;
-          this.isGrounded = true;
-          this.attackFrames = 0;
-          this.color = "#10b981"; // Brand color
-        }
+        spaceRenderer = new THREE.WebGLRenderer({ antialias: true });
+        spaceRenderer.setSize(spaceContainer.clientWidth, spaceContainer.clientHeight);
+        spaceContainer.appendChild(spaceRenderer.domElement);
 
-        jump() {
-          if (this.isGrounded) {
-            this.vy = -10.5;
-            this.isGrounded = false;
-            this.color = "#34d399"; // Flash lighter on jump
-          }
-        }
+        orbitControls = new THREE.OrbitControls(spaceCamera, spaceRenderer.domElement);
+        orbitControls.enableDamping = true;
+        orbitControls.dampingFactor = 0.05;
+        orbitControls.enabled = false; // Disable until clicked
 
-        attack() {
-          if (this.attackFrames === 0) {
-            this.attackFrames = 15; // Sword persists for 15 frames
-          }
-        }
+        // Lights
+        const ambientLight = new THREE.AmbientLight(0x333333);
+        spaceScene.add(ambientLight);
 
-        update() {
-          // Apply Gravity
-          this.vy += GRAVITY;
-          this.y += this.vy;
+        const pointLight = new THREE.PointLight(0xffffff, 2, 300);
+        spaceScene.add(pointLight);
 
-          // Ground Collision
-          if (this.y + this.height >= GROUND_Y) {
-            this.y = GROUND_Y - this.height;
-            this.vy = 0;
-            this.isGrounded = true;
-            this.color = "#10b981"; // Reset color
-          }
+        const sunGeo = new THREE.SphereGeometry(8, 32, 32);
+        const sunMat = new THREE.MeshBasicMaterial({ color: 0xfdb813 });
+        const sun = new THREE.Mesh(sunGeo, sunMat);
+        spaceScene.add(sun);
 
-          // Attack cooldown
-          if (this.attackFrames > 0) {
-            this.attackFrames--;
-          }
-        }
+        // Planets Data (Color, Size, Distance, Orbit Speed)
+        const planetData = [
+          { color: 0x888888, size: 1.5, dist: 15, speed: 0.04 }, // Mercury
+          { color: 0xe3bb76, size: 2.5, dist: 25, speed: 0.015 }, // Venus
+          { color: 0x2b82c9, size: 3, dist: 35, speed: 0.01 }, // Earth
+          { color: 0xc1440e, size: 2, dist: 45, speed: 0.008 }, // Mars
+          { color: 0xd8ca9d, size: 6, dist: 65, speed: 0.002 }, // Jupiter
+          { color: 0xead6b8, size: 5, dist: 85, speed: 0.0015 }, // Saturn
+        ];
 
-        draw() {
-          // Draw Hero (Developer)
-          gCtx.fillStyle = this.color;
-          gCtx.fillRect(this.x, this.y, this.width, this.height);
+        planetData.forEach((data) => {
+          // Visual Orbit Ring matching brand color
+          const orbitGeo = new THREE.RingGeometry(data.dist - 0.1, data.dist + 0.1, 64);
+          const orbitMat = new THREE.MeshBasicMaterial({
+            color: 0x10b981,
+            transparent: true,
+            opacity: 0.2,
+            side: THREE.DoubleSide,
+          });
+          const orbitRing = new THREE.Mesh(orbitGeo, orbitMat);
+          orbitRing.rotation.x = Math.PI / 2;
+          spaceScene.add(orbitRing);
 
-          // Draw Eye/Glasses (Styling)
-          gCtx.fillStyle = "#050505";
-          gCtx.fillRect(this.x + 14, this.y + 8, 8, 4);
+          // Planet Group (Used for orbiting around the sun)
+          const group = new THREE.Group();
+          spaceScene.add(group);
 
-          // Draw Sword (Attack Hitbox)
-          if (this.attackFrames > 0) {
-            gCtx.fillStyle = "#ffffff"; // White sword flash
-            gCtx.shadowBlur = 10;
-            gCtx.shadowColor = "#34d399";
+          // Planet Mesh (Used for appearance and rotating on own axis)
+          const geo = new THREE.SphereGeometry(data.size, 32, 32);
+          const mat = new THREE.MeshStandardMaterial({
+            color: data.color,
+            roughness: 0.8,
+            metalness: 0.2,
+          });
+          const mesh = new THREE.Mesh(geo, mat);
+          mesh.position.x = data.dist;
 
-            // Sword swoosh
-            let swordWidth = 40;
-            let swordHeight = 6;
-            let swordX = this.x + this.width;
-            let swordY = this.y + 15;
-
-            // Animate sword arc slightly
-            if (this.attackFrames > 10) swordY -= 5;
-            if (this.attackFrames < 5) swordY += 5;
-
-            gCtx.fillRect(swordX, swordY, swordWidth, swordHeight);
-            gCtx.shadowBlur = 0;
-          }
-        }
-      }
-
-      class Enemy {
-        constructor() {
-          this.width = 20;
-          this.height = 20;
-          this.x = rpgCanvas.width + 20;
-          this.y = GROUND_Y - this.height;
-          this.speed = 3 + Math.random() * 2 + score * 0.1; // Speed scales with score
-          this.markedForDeletion = false;
-          this.wobble = Math.random() * Math.PI * 2;
-        }
-
-        update() {
-          this.x -= this.speed;
-          // Slight bounce effect for bugs
-          this.wobble += 0.2;
-          this.y = GROUND_Y - this.height + Math.sin(this.wobble) * 3;
-
-          if (this.x + this.width < 0) {
-            this.markedForDeletion = true;
-          }
-        }
-
-        draw() {
-          // Draw Bug (Enemy)
-          gCtx.fillStyle = "#ef4444"; // Red bug
-          gCtx.fillRect(this.x, this.y, this.width, this.height);
-
-          // Bug antennas/details
-          gCtx.fillStyle = "#fff";
-          gCtx.fillRect(this.x + 4, this.y + 4, 4, 4);
-          gCtx.fillRect(this.x + 12, this.y + 4, 4, 4);
-        }
-      }
-
-      class ExplosionParticle {
-        constructor(x, y, color) {
-          this.x = x;
-          this.y = y;
-          this.size = Math.random() * 4 + 2;
-          this.speedX = Math.random() * 6 - 3;
-          this.speedY = Math.random() * -6;
-          this.color = color;
-          this.life = 1;
-        }
-        update() {
-          this.x += this.speedX;
-          this.y += this.speedY;
-          this.speedY += 0.3; // Gravity for particles
-          this.life -= 0.05;
-        }
-        draw() {
-          gCtx.fillStyle = this.color;
-          gCtx.globalAlpha = Math.max(0, this.life);
-          gCtx.fillRect(this.x, this.y, this.size, this.size);
-          gCtx.globalAlpha = 1;
-        }
-      }
-
-      class BgCode {
-        constructor() {
-          this.x = rpgCanvas.width;
-          this.y = Math.random() * (GROUND_Y - 50);
-          this.text = ["{}", "</>", "[]", "=>", "||"][Math.floor(Math.random() * 5)];
-          this.speed = 0.5 + Math.random() * 1;
-          this.alpha = 0.1 + Math.random() * 0.2;
-        }
-        update() {
-          this.x -= this.speed;
-        }
-        draw() {
-          gCtx.fillStyle = `rgba(16, 185, 129, ${this.alpha})`;
-          gCtx.font = "14px monospace";
-          gCtx.fillText(this.text, this.x, this.y);
-        }
-      }
-
-      function createExplosion(x, y, color) {
-        for (let i = 0; i < 15; i++) {
-          particles.push(new ExplosionParticle(x, y, color));
-        }
-      }
-
-      function drawEnvironment() {
-        // Draw Ground
-        gCtx.fillStyle = "#064e3b"; // Darker green ground
-        gCtx.fillRect(0, GROUND_Y, rpgCanvas.width, rpgCanvas.height - GROUND_Y);
-
-        // Ground line
-        gCtx.strokeStyle = "#10b981";
-        gCtx.lineWidth = 2;
-        gCtx.beginPath();
-        gCtx.moveTo(0, GROUND_Y);
-        gCtx.lineTo(rpgCanvas.width, GROUND_Y);
-        gCtx.stroke();
-      }
-
-      function checkCollisions() {
-        enemies.forEach((enemy) => {
-          // 1. Check if Sword hits Enemy
-          if (hero.attackFrames > 0) {
-            let swordX = hero.x + hero.width;
-            let swordY = hero.y + 15;
-            let swordWidth = 40;
-            let swordHeight = 6;
-
-            if (
-              swordX < enemy.x + enemy.width &&
-              swordX + swordWidth > enemy.x &&
-              swordY < enemy.y + enemy.height &&
-              swordY + swordHeight > enemy.y
-            ) {
-              enemy.markedForDeletion = true;
-              score++;
-              createExplosion(enemy.x + 10, enemy.y + 10, "#ef4444");
-              return; // Bug destroyed, skip body collision
-            }
+          // Add Saturn's Ring
+          if (data.size === 5) {
+            const ringGeo = new THREE.RingGeometry(6, 10, 32);
+            const ringMat = new THREE.MeshStandardMaterial({
+              color: 0xa9a59c,
+              side: THREE.DoubleSide,
+              transparent: true,
+              opacity: 0.8,
+            });
+            const ring = new THREE.Mesh(ringGeo, ringMat);
+            ring.rotation.x = Math.PI / 2 + 0.2; // Tilt ring
+            mesh.add(ring);
           }
 
-          // 2. Check if Enemy hits Hero body
-          // Added a small margin (5px) for a more forgiving hitbox
-          if (
-            hero.x + 5 < enemy.x + enemy.width &&
-            hero.x + hero.width - 5 > enemy.x &&
-            hero.y + 5 < enemy.y + enemy.height &&
-            hero.y + hero.height - 5 > enemy.y
-          ) {
-            isGameOver = true;
-            createExplosion(hero.x + hero.width / 2, hero.y + hero.height / 2, "#10b981");
+          group.add(mesh);
+          planets.push({ group, speed: data.speed, mesh });
+        });
+
+        const starsGeo = new THREE.BufferGeometry();
+        const starsCount = 500;
+        const posArray = new Float32Array(starsCount * 3);
+        for (let i = 0; i < starsCount * 3; i++) {
+          posArray[i] = (Math.random() - 0.5) * 400; // Spread randomly
+        }
+        starsGeo.setAttribute("position", new THREE.BufferAttribute(posArray, 3));
+        const starsMat = new THREE.PointsMaterial({ size: 0.5, color: 0xffffff });
+        const stars = new THREE.Points(starsGeo, starsMat);
+        spaceScene.add(stars);
+
+        // Handle resize events cleanly inside the container
+        window.addEventListener("resize", () => {
+          if (spaceContainer && spaceCamera && spaceRenderer) {
+            spaceCamera.aspect = spaceContainer.clientWidth / spaceContainer.clientHeight;
+            spaceCamera.updateProjectionMatrix();
+            spaceRenderer.setSize(spaceContainer.clientWidth, spaceContainer.clientHeight);
           }
         });
       }
 
-      function handleEnemiesAndEnvironment() {
-        // Spawn Background Code
-        if (frames % 60 === 0) backgroundCode.push(new BgCode());
+      function animateSpace() {
+        requestAnimationFrame(animateSpace);
 
-        backgroundCode.forEach((bg, index) => {
-          bg.update();
-          bg.draw();
-          if (bg.x + 20 < 0) backgroundCode.splice(index, 1);
+        if (isSpacePlaying && orbitControls) {
+          orbitControls.update();
+        }
+
+        // Rotate planets along their orbits and axes
+        planets.forEach((p) => {
+          p.group.rotation.y += p.speed;
+          p.mesh.rotation.y += 0.01;
         });
 
-        // Spawn Enemies
-        let spawnRate = Math.max(40, 100 - score * 2); // Gets faster
-        if (frames % spawnRate === 0 && frames > 0) {
-          enemies.push(new Enemy());
+        if (spaceRenderer && spaceScene && spaceCamera) {
+          spaceRenderer.render(spaceScene, spaceCamera);
         }
-
-        enemies.forEach((enemy, index) => {
-          enemy.update();
-          enemy.draw();
-          if (enemy.markedForDeletion) enemies.splice(index, 1);
-        });
-
-        // Handle Particles
-        particles.forEach((particle, index) => {
-          particle.update();
-          particle.draw();
-          if (particle.life <= 0) particles.splice(index, 1);
-        });
       }
 
-      function drawScore() {
-        gCtx.fillStyle = "#34d399";
-        gCtx.font = "bold 16px monospace";
-        gCtx.fillText(`Bugs Fixed: ${score}`, 20, 30);
-      }
-
-      function rpgTick() {
-        if (isGameOver) {
-          isPlaying = false;
-          gameOverScreen.classList.remove("hidden");
-          scoreDisplay.textContent = "Bugs Fixed: " + score;
-          return; // Stop animation loop
-        }
-
-        // Clear Canvas
-        gCtx.fillStyle = "#050505";
-        gCtx.fillRect(0, 0, rpgCanvas.width, rpgCanvas.height);
-
-        drawEnvironment();
-        handleEnemiesAndEnvironment();
-
-        hero.update();
-        hero.draw();
-
-        checkCollisions();
-        drawScore();
-
-        frames++;
-        animationId = requestAnimationFrame(rpgTick);
-      }
-
-      function startRPG() {
-        if (isPlaying) return;
-
-        // Reset state
-        isPlaying = true;
-        isGameOver = false;
-        score = 0;
-        frames = 0;
-        hero = new Hero();
-        enemies = [];
-        particles = [];
-        backgroundCode = [];
-
-        // Hide overlays
-        gameOverlay.classList.add("hidden");
-        gameOverScreen.classList.add("hidden");
-
-        cancelAnimationFrame(animationId);
-        rpgTick();
-      }
-
-      // --- Controls ---
-
-      // Desktop Keyboard
-      document.addEventListener("keydown", (e) => {
-        if (!isPlaying) return;
-        // Prevent default scrolling for game keys
-        if (["Space", "ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(e.code)) {
-          e.preventDefault();
-        }
-
-        if (e.code === "ArrowUp" || e.code === "KeyW") {
-          hero.jump();
-        }
-        if (e.code === "Space" || e.code === "ArrowRight" || e.code === "KeyD") {
-          hero.attack();
-        }
+      // Initialize 3D Simulation securely on Window Load
+      window.addEventListener("load", () => {
+        initSpace();
+        animateSpace();
       });
 
-      // Mobile Touch & Mouse Clicks on the container
-      gameContainer.addEventListener(
-        "touchstart",
-        (e) => {
-          if (!isPlaying && !isGameOver) {
-            startRPG();
-            return;
-          }
-          if (!isPlaying) return;
-
-          e.preventDefault(); // Stop mobile scroll while playing
-
-          // Get touch position relative to container
-          const rect = gameContainer.getBoundingClientRect();
-          const touchX = e.changedTouches[0].clientX - rect.left;
-
-          // Left half = Jump, Right half = Attack
-          if (touchX < rect.width / 2) {
-            hero.jump();
-          } else {
-            hero.attack();
-          }
-        },
-        { passive: false },
-      );
-
-      // Mouse click for starting and simple play
-      gameContainer.addEventListener("mousedown", (e) => {
-        if (!isPlaying && !isGameOver) {
-          startRPG();
-          return;
+      // Bind play button interactions
+      gameContainer.addEventListener("click", () => {
+        if (!isSpacePlaying) {
+          isSpacePlaying = true;
+          gameOverlay.classList.add("hidden");
+          if (orbitControls) orbitControls.enabled = true;
         }
-        if (!isPlaying) return;
-
-        const rect = gameContainer.getBoundingClientRect();
-        const clickX = e.clientX - rect.left;
-
-        if (clickX < rect.width / 2) {
-          hero.jump();
-        } else {
-          hero.attack();
-        }
-      });
-
-      restartBtn.addEventListener("click", (e) => {
-        e.stopPropagation();
-        startRPG();
       });
 
       // --- Smooth Scrolling & Disable URL Hash ---
