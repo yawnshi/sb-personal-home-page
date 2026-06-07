@@ -386,17 +386,13 @@ export default function App() {
           exitClicks++;
 
           if (exitClicks === 3) {
+            number = "3";
             text =
               "SYSTEM ALERT: Structural integrity of the viewing portal compromised. Cease interaction immediately!";
             shouldShow = true;
           } else if (exitClicks === 6) {
-            text = "The void stares back. Do not knock on the glass.";
-            shouldShow = true;
-          } else if (exitClicks === 7) {
-            number = "3";
-            shouldShow = true;
-          } else if (exitClicks === 8) {
             number = "2";
+            text = "The void stares back. Do not knock on the glass.";
             shouldShow = true;
           } else if (exitClicks === 9) {
             number = "1";
@@ -1130,23 +1126,6 @@ export default function App() {
                   <p className="text-gray-400 text-sm">View my repos</p>
                 </div>
               </a>
-
-              {/*  Twitter/X  */}
-              {/*  <a
-              href="#"
-              target="_blank"
-              className="flex items-center p-6 bg-pure-black/60 border border-brand/20 rounded-2xl shadow-sm card-hover transition-all duration-300 group"
-            >
-              <div
-                className="w-14 h-14 bg-[#1DA1F2]/10 rounded-full flex items-center justify-center mr-6 group-hover:bg-[#1DA1F2]/20 transition-colors"
-              >
-                <i className="fab fa-twitter text-2xl text-[#1DA1F2]"></i>
-              </div>
-              <div>
-                <h3 className="text-white font-bold text-lg">Twitter / X</h3>
-                <p className="text-gray-400 text-sm">Follow my updates</p>
-              </div>
-            </a>  */}
             </div>
           </div>
         </div>
@@ -1161,6 +1140,21 @@ export default function App() {
           <p className="text-gray-500 text-sm">© 2026 VenderGreat. All rights reserved.</p>
         </div>
       </footer>
+
+      {/*  Easter Egg Overlay  */}
+      <div
+        id="easterEggOverlay"
+        className="fixed inset-0 z-[100] flex flex-col items-center justify-center pointer-events-none opacity-0 transition-opacity duration-500 bg-pure-black/30 backdrop-blur-sm"
+      >
+        <div
+          id="easterEggNumber"
+          className="text-[12rem] md:text-[20rem] font-black text-brand tracking-tighter leading-none drop-shadow-[0_0_30px_rgba(16,185,129,0.8)]"
+        ></div>
+        <div
+          id="easterEggText"
+          className="text-xl md:text-3xl text-center text-white font-bold mt-4 max-w-3xl px-6 drop-shadow-lg"
+        ></div>
+      </div>
     </>
   );
 }
