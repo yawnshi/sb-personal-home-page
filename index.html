@@ -120,11 +120,20 @@
               class="relative bg-[#0d1117] rounded-xl border border-gray-800 shadow-2xl overflow-hidden h-full flex flex-col min-h-[445px]"
             >
               <!-- Terminal Header -->
-              <div class="flex items-center px-4 py-3 bg-[#161b22] border-b border-gray-800">
+              <div id="terminal-header" class="flex items-center px-4 py-3 bg-[#161b22] border-b border-gray-800">
                 <div class="flex space-x-2">
-                  <div class="w-3 h-3 rounded-full bg-red-500/80"></div>
-                  <div class="w-3 h-3 rounded-full bg-yellow-500/80"></div>
-                  <div class="w-3 h-3 rounded-full bg-green-500/80"></div>
+                  <div
+                    id="btn-exit"
+                    class="w-3 h-3 rounded-full bg-red-500/80 cursor-pointer hover:bg-red-500 transition-colors relative z-20"
+                  ></div>
+                  <div
+                    id="btn-minimize"
+                    class="w-3 h-3 rounded-full bg-yellow-500/80 cursor-pointer hover:bg-yellow-500 transition-colors relative z-20"
+                  ></div>
+                  <div
+                    id="btn-maximize"
+                    class="w-3 h-3 rounded-full bg-green-500/80 cursor-pointer hover:bg-green-500 transition-colors relative z-20"
+                  ></div>
                 </div>
                 <div class="mx-auto text-xs text-gray-400 font-mono tracking-wider">Space Explorer</div>
                 <div class="w-11"></div>
@@ -1064,5 +1073,210 @@
         });
       });
     </script>
+
+    <style>
+      @keyframes glass-shake {
+        0% {
+          transform: translate(2px, 1px) rotate(0deg);
+        }
+        10% {
+          transform: translate(-1px, -2px) rotate(-1deg);
+        }
+        20% {
+          transform: translate(-3px, 0px) rotate(1deg);
+        }
+        30% {
+          transform: translate(0px, 2px) rotate(0deg);
+        }
+        40% {
+          transform: translate(1px, -1px) rotate(1deg);
+        }
+        50% {
+          transform: translate(-1px, 2px) rotate(-1deg);
+        }
+        60% {
+          transform: translate(-3px, 1px) rotate(0deg);
+        }
+        70% {
+          transform: translate(2px, 1px) rotate(-1deg);
+        }
+        80% {
+          transform: translate(-1px, -1px) rotate(1deg);
+        }
+        90% {
+          transform: translate(2px, 2px) rotate(0deg);
+        }
+        100% {
+          transform: translate(1px, -2px) rotate(-1deg);
+        }
+      }
+      .animate-glass-shake {
+        animation: glass-shake 0.4s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+      }
+    </style>
+    <!-- Easter Egg Logic & Overlay -->
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const btnExit = document.getElementById("btn-exit");
+        const btnMin = document.getElementById("btn-minimize");
+        const btnMax = document.getElementById("btn-maximize");
+        const overlay = document.getElementById("easterEggOverlay");
+        const numberEl = document.getElementById("easterEggNumber");
+        const textEl = document.getElementById("easterEggText");
+        const gameContainer = document.getElementById("gameContainer");
+        const terminalHeader = document.getElementById("terminal-header");
+
+        let totalClicks = 0;
+        let exitClicks = 0;
+        let overlayTimeout = null;
+
+        function showOverlay(number, text) {
+          numberEl.textContent = number || "";
+          textEl.textContent = text || "";
+          overlay.classList.remove("opacity-0");
+          overlay.classList.add("opacity-100");
+
+          if (overlayTimeout) clearTimeout(overlayTimeout);
+          overlayTimeout = setTimeout(() => {
+            overlay.classList.remove("opacity-100");
+            overlay.classList.add("opacity-0");
+          }, 3000); // Hide after 3s
+        }
+
+        function handleButtonClick(e) {
+          let text = "";
+          let number = "";
+          let shouldShow = false;
+
+          if (e.target.id === "btn-exit") {
+            exitClicks++;
+
+            if (exitClicks === 3) {
+              text =
+                "SYSTEM ALERT: Structural integrity of the viewing portal compromised. Cease interaction immediately!";
+              shouldShow = true;
+            } else if (exitClicks === 6) {
+              text = "The void stares back. Do not knock on the glass.";
+              shouldShow = true;
+            } else if (exitClicks === 7) {
+              number = "3";
+              shouldShow = true;
+            } else if (exitClicks === 8) {
+              number = "2";
+              shouldShow = true;
+            } else if (exitClicks === 9) {
+              number = "1";
+              text = "Ouch! That tickles. Seriously, these buttons are just for show!";
+              shouldShow = true;
+            } else if (exitClicks === 10) {
+              // Trigger final easter egg
+              if (terminalHeader) terminalHeader.style.display = "none";
+              gameContainer.innerHTML =
+                '<iframe src="https://tarfalmadani.com" class="w-full h-full border-0 absolute inset-0 z-20"></iframe>';
+
+              // Hide overlay if it's visible
+              if (overlayTimeout) clearTimeout(overlayTimeout);
+              overlay.classList.remove("opacity-100");
+              overlay.classList.add("opacity-0");
+
+              return; // Stop here
+            }
+
+            // Shaking effect on container
+            gameContainer.classList.remove("animate-glass-shake");
+            void gameContainer.offsetWidth; // trigger reflow
+            gameContainer.classList.add("animate-glass-shake");
+
+            // Add cracked glass SVG to the container
+            let crackSvg = document.getElementById("windowCracks");
+            if (!crackSvg) {
+              crackSvg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+              crackSvg.id = "windowCracks";
+              crackSvg.style.position = "absolute";
+              crackSvg.style.inset = "0";
+              crackSvg.style.width = "100%";
+              crackSvg.style.height = "100%";
+              crackSvg.style.pointerEvents = "none";
+              crackSvg.style.zIndex = "50";
+              gameContainer.appendChild(crackSvg);
+            }
+
+            const w = gameContainer.offsetWidth || 500;
+            const h = gameContainer.offsetHeight || 300;
+            const x = Math.random() * w * 0.8 + w * 0.1;
+            const y = Math.random() * h * 0.8 + h * 0.1;
+            const numLines = Math.floor(Math.random() * 5) + 4;
+            let paths = "";
+            for (let i = 0; i < numLines; i++) {
+              let currentX = x;
+              let currentY = y;
+              let d = `M ${currentX} ${currentY}`;
+              const segments = Math.floor(Math.random() * 4) + 2;
+              let angle = Math.random() * Math.PI * 2;
+
+              for (let j = 0; j < segments; j++) {
+                const length = Math.random() * 150 + 50;
+                angle += (Math.random() - 0.5) * 1.2;
+                currentX += Math.cos(angle) * length;
+                currentY += Math.sin(angle) * length;
+                d += ` L ${currentX} ${currentY}`;
+              }
+              paths += `<path d="${d}" stroke="rgba(255,255,255,0.7)" stroke-width="1.5" fill="none" filter="drop-shadow(1px 1px 1px rgba(0,0,0,0.8))" />`;
+              let branchX = x + Math.cos(angle) * 40;
+              let branchY = y + Math.sin(angle) * 40;
+              let branchAngle = angle + (Math.random() > 0.5 ? 1 : -1) * 0.8;
+              let branchD = `M ${branchX} ${branchY} L ${branchX + Math.cos(branchAngle) * 80} ${branchY + Math.sin(branchAngle) * 80}`;
+              paths += `<path d="${branchD}" stroke="rgba(255,255,255,0.4)" stroke-width="1" fill="none" />`;
+            }
+            paths += `<circle cx="${x}" cy="${y}" r="2" fill="rgba(255,255,255,0.9)" />`;
+            crackSvg.insertAdjacentHTML("beforeend", `<g class="crack-group">${paths}</g>`);
+
+            if (shouldShow) {
+              // Also shake the overlay
+              overlay.classList.remove("animate-glass-shake");
+              void overlay.offsetWidth;
+              overlay.classList.add("animate-glass-shake");
+
+              showOverlay(number, text);
+            }
+          } else if (e.target.id === "btn-maximize") {
+            // Green button: recover completely
+            exitClicks = 0;
+            let crackSvg = document.getElementById("windowCracks");
+            if (crackSvg) {
+              crackSvg.innerHTML = "";
+            }
+          } else if (e.target.id === "btn-minimize") {
+            // Yellow button: recover partially
+            exitClicks = Math.max(0, exitClicks - 1);
+            let crackSvg = document.getElementById("windowCracks");
+            if (crackSvg) {
+              const groups = crackSvg.querySelectorAll(".crack-group");
+              if (groups.length > 0) {
+                groups[groups.length - 1].remove();
+              }
+            }
+          }
+        }
+
+        if (btnExit) btnExit.addEventListener("click", handleButtonClick);
+        if (btnMin) btnMin.addEventListener("click", handleButtonClick);
+        if (btnMax) btnMax.addEventListener("click", handleButtonClick);
+      });
+    </script>
+
+    <div
+      id="easterEggOverlay"
+      class="fixed inset-0 z-[100] flex flex-col items-center justify-center pointer-events-none opacity-0 transition-opacity duration-500 bg-pure-black/30 backdrop-blur-sm"
+    >
+      <div
+        id="easterEggNumber"
+        class="text-[12rem] md:text-[20rem] font-black text-brand tracking-tighter leading-none drop-shadow-[0_0_30px_rgba(16,185,129,0.8)]"
+      ></div>
+      <div
+        id="easterEggText"
+        class="text-xl md:text-3xl text-center text-white font-bold mt-4 max-w-3xl px-6 drop-shadow-lg"
+      ></div>
+    </div>
   </body>
 </html>
