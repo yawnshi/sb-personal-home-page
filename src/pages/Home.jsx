@@ -1,10 +1,17 @@
-import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
-import * as THREE from "three";
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
+import React, { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
+import * as THREE from 'three';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import "../App.css"; // For the glass-shake animation
 
 export default function Home() {
+  const [clickCount, setClickCount] = useState(0);
+  const [warningText, setWarningText] = useState("");
+  const [warningColor, setWarningColor] = useState("text-red-500");
+  const [showWarning, setShowWarning] = useState(false);
+  const [countdown, setCountdown] = useState(null);
+
   useEffect(() => {
     // === Canvas Animation ===
 
@@ -133,8 +140,9 @@ export default function Home() {
       }
     }
 
+    let animationId;
     function animate() {
-      requestAnimationFrame(animate);
+      animationId = requestAnimationFrame(animate);
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       particlesArray.forEach((particle) => {
@@ -266,8 +274,9 @@ export default function Home() {
       });
     }
 
+    let spaceAnimationId;
     function animateSpace() {
-      requestAnimationFrame(animateSpace);
+      spaceAnimationId = requestAnimationFrame(animateSpace);
 
       if (isSpacePlaying && orbitControls) {
         orbitControls.update();
@@ -497,11 +506,35 @@ export default function Home() {
 
     return () => {
       window.removeEventListener("resize", setCanvasSize);
+      if (animationId) cancelAnimationFrame(animationId);
+      if (spaceAnimationId) cancelAnimationFrame(spaceAnimationId);
+      
+      // Cleanup Three.js memory to prevent leaks
+      if (spaceRenderer) spaceRenderer.dispose();
+      if (spaceScene) {
+        spaceScene.traverse((object) => {
+          if (object.isMesh) {
+            if (object.geometry) object.geometry.dispose();
+            if (object.material) {
+              if (Array.isArray(object.material)) {
+                object.material.forEach(material => material.dispose());
+              } else {
+                object.material.dispose();
+              }
+            }
+          }
+        });
+      }
     };
   }, []);
 
   return (
-    <>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.4 }}
+    >
       {/*  Fixed Canvas for Animation Background on All Sections  */}
       <canvas id="particleCanvas" className="fixed top-0 left-0 w-full h-full z-0 pointer-events-none"></canvas>
 
@@ -1077,6 +1110,6 @@ export default function Home() {
           className="text-xl md:text-3xl text-center text-white font-bold mt-4 max-w-3xl px-6 drop-shadow-lg"
         ></div>
       </div>
-    </>
+    </motion.div>
   );
 }

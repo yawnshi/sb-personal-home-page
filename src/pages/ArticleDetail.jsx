@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { motion } from 'framer-motion';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import { articles } from '../data/articles';
@@ -25,11 +26,17 @@ export default function ArticleDetail() {
   }
 
   return (
-    <div className="min-h-screen bg-pure-black text-white font-sans selection:bg-brand selection:text-white">
+    <motion.div
+      initial={{ opacity: 0, y: 15 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -15 }}
+      transition={{ duration: 0.4 }}
+    >
+      <div className="min-h-screen bg-pure-black text-white font-sans selection:bg-brand selection:text-white">
       {/* Navigation */}
       <nav className="relative z-50 w-full py-6 px-8 flex justify-between items-center glass border-b border-white/5 sticky top-0 backdrop-blur-xl">
         <Link to="/articles" className="text-xl font-bold tracking-tighter hover:scale-105 transition-transform flex items-center gap-2 text-gray-400 hover:text-white">
-          <i className="fas fa-arrow-left text-brand text-sm"></i> Back to Articles
+          <i className="fas fa-arrow-left text-brand text-sm"></i> <span className="hidden md:inline">Back to Articles</span>
         </Link>
       </nav>
 
@@ -92,5 +99,6 @@ export default function ArticleDetail() {
         .prose a:hover { color: #34d399; }
       `}</style>
     </div>
+    </motion.div>
   );
 }

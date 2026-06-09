@@ -1,10 +1,17 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { articles } from '../data/articles';
 
 export default function ArticlesHub() {
   return (
-    <div className="min-h-screen bg-pure-black text-white font-sans selection:bg-brand selection:text-white">
+    <motion.div
+      initial={{ opacity: 0, y: 15 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -15 }}
+      transition={{ duration: 0.4 }}
+    >
+      <div className="min-h-screen bg-pure-black text-white font-sans selection:bg-brand selection:text-white">
       {/* Navigation */}
       <nav className="relative z-50 w-full py-6 px-8 flex justify-between items-center glass border-b border-white/5 sticky top-0 backdrop-blur-xl">
         <Link to="/personal-space" className="text-xl font-bold tracking-tighter hover:scale-105 transition-transform flex items-center gap-2 text-gray-400 hover:text-white">
@@ -58,5 +65,6 @@ export default function ArticlesHub() {
         </div>
       </main>
     </div>
+    </motion.div>
   );
 }

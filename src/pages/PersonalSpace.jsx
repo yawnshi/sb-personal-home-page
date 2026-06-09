@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { articles } from '../data/articles';
 
@@ -111,7 +112,13 @@ export default function PersonalSpace() {
   }, []);
 
   return (
-    <div ref={containerRef} className="relative bg-pure-black text-white font-sans h-screen overflow-y-auto hide-scrollbar scroll-smooth">
+    <motion.div
+      initial={{ opacity: 0, y: 15 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -15 }}
+      transition={{ duration: 0.4 }}
+    >
+      <div ref={containerRef} className="relative bg-pure-black text-white font-sans h-screen overflow-y-auto hide-scrollbar scroll-smooth">
       
       {/* --- LOCKSCREEN HERO SECTION (Only visible in fullscreen) --- */}
       <div className={`relative w-full overflow-hidden transition-all duration-1000 ease-in-out ${isFullscreen ? 'h-[100vh] opacity-100' : 'h-0 opacity-0'}`}>
@@ -307,5 +314,6 @@ export default function PersonalSpace() {
         }
       `}</style>
     </div>
+    </motion.div>
   );
 }
