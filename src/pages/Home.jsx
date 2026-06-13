@@ -190,7 +190,7 @@ export default function Home() {
       const ambientLight = new THREE.AmbientLight(0x333333);
       spaceScene.add(ambientLight);
 
-      const pointLight = new THREE.PointLight(0xffffff, 2, 300);
+      const pointLight = new THREE.PointLight(0xffffff, 2, 300, 0); // Add decay=0 parameter for legacy lighting look
       spaceScene.add(pointLight);
 
       const sunGeo = new THREE.SphereGeometry(8, 32, 32);
@@ -293,11 +293,18 @@ export default function Home() {
       }
     }
 
-    // Initialize 3D Simulation securely on Window Load
-    window.addEventListener("load", () => {
-      initSpace();
-      animateSpace();
-    });
+    // Initialize 3D Simulation directly since useEffect guarantees DOM is ready
+    let spaceInitTimeout;
+    if (spaceContainer) {
+      // Small timeout to ensure container has dimensions
+      spaceInitTimeout = setTimeout(() => {
+        // Double check container still exists in DOM
+        if (document.getElementById("canvas-container")) {
+          initSpace();
+          animateSpace();
+        }
+      }, 50);
+    }
 
     // Bind play button interactions
     gameContainer.addEventListener("click", () => {
@@ -508,6 +515,7 @@ export default function Home() {
       window.removeEventListener("resize", setCanvasSize);
       if (animationId) cancelAnimationFrame(animationId);
       if (spaceAnimationId) cancelAnimationFrame(spaceAnimationId);
+      if (spaceInitTimeout) clearTimeout(spaceInitTimeout);
       
       // Cleanup Three.js memory to prevent leaks
       if (spaceRenderer) spaceRenderer.dispose();
