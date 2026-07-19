@@ -183,9 +183,46 @@ export default function SpaceExplorer() {
     // ==========================================
     // 5. OBSERVABLE UNIVERSE (200,000 - 1,000,000)
     // ==========================================
-    const obsGeo = new THREE.SphereGeometry(300000, 64, 64);
-    const obsMat = new THREE.MeshBasicMaterial({ color: 0x111111, wireframe: true, transparent: true, opacity: 0 });
-    const obsUniverse = new THREE.Mesh(obsGeo, obsMat);
+    const obsGeo = new THREE.BufferGeometry();
+    const obsCount = 20000;
+    const obsPos = new Float32Array(obsCount * 3);
+    const obsColors = new Float32Array(obsCount * 3);
+    for (let i = 0; i < obsCount; i++) {
+      const u = Math.random();
+      const v = Math.random();
+      const theta = u * 2.0 * Math.PI;
+      const phi = Math.acos(2.0 * v - 1.0);
+      const r = 300000 + (Math.random() * 5000 - 2500); // slight depth variation
+      
+      const x = r * Math.sin(phi) * Math.cos(theta);
+      const y = r * Math.sin(phi) * Math.sin(theta);
+      const z = r * Math.cos(phi);
+      
+      obsPos[i*3] = x;
+      obsPos[i*3+1] = y;
+      obsPos[i*3+2] = z;
+
+      // Color splotches based on sine waves mimicking heat map (red, orange, yellow, blue)
+      const noise = Math.sin(x / 30000) * Math.cos(y / 30000) * Math.sin(z / 30000);
+      let rC, gC, bC;
+      if (noise > 0.5) { // Red/Orange (hot)
+        rC = 1.0; gC = 0.3; bC = 0.1;
+      } else if (noise > 0) { // Yellow (warm)
+        rC = 1.0; gC = 0.8; bC = 0.2;
+      } else if (noise > -0.5) { // Cyan (cool)
+        rC = 0.2; gC = 0.8; bC = 0.8;
+      } else { // Dark Blue (cold)
+        rC = 0.1; gC = 0.2; bC = 0.6;
+      }
+      
+      obsColors[i*3] = rC;
+      obsColors[i*3+1] = gC;
+      obsColors[i*3+2] = bC;
+    }
+    obsGeo.setAttribute('position', new THREE.BufferAttribute(obsPos, 3));
+    obsGeo.setAttribute('color', new THREE.BufferAttribute(obsColors, 3));
+    const obsMat = new THREE.PointsMaterial({ size: 3000, vertexColors: true, transparent: true, opacity: 0, depthWrite: false });
+    const obsUniverse = new THREE.Points(obsGeo, obsMat);
     observableGroup.add(obsUniverse);
 
 
