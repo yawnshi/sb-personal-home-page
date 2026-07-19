@@ -147,6 +147,13 @@ export default function SpaceExplorer() {
     const virgoMat = new THREE.PointsMaterial({ size: 100, color: 0x48cae4, transparent: true, opacity: 0, depthWrite: false });
     const virgoCluster = new THREE.Points(virgoGeo, virgoMat);
     virgoGroup.add(virgoCluster);
+    const ourMilkyWay = new THREE.Mesh(
+      new THREE.SphereGeometry(2000, 32, 32),
+      new THREE.MeshBasicMaterial({ color: 0x9d4edd, transparent: true, opacity: 0, blending: THREE.AdditiveBlending })
+    );
+    virgoGroup.add(ourMilkyWay);
+    window.__proxyMats = window.__proxyMats || {};
+    window.__proxyMats.virgo = ourMilkyWay.material;
 
 
     // ==========================================
@@ -178,6 +185,13 @@ export default function SpaceExplorer() {
     const laniakeaMat = new THREE.PointsMaterial({ size: 400, color: 0xffb703, transparent: true, opacity: 0, depthWrite: false });
     const laniakea = new THREE.Points(laniakeaGeo, laniakeaMat);
     laniakeaGroup.add(laniakea);
+    const ourVirgo = new THREE.Mesh(
+      new THREE.SphereGeometry(20000, 32, 32),
+      new THREE.MeshBasicMaterial({ color: 0x48cae4, transparent: true, opacity: 0, blending: THREE.AdditiveBlending })
+    );
+    laniakeaGroup.add(ourVirgo);
+    window.__proxyMats = window.__proxyMats || {};
+    window.__proxyMats.laniakea = ourVirgo.material;
 
 
     // ==========================================
@@ -224,6 +238,13 @@ export default function SpaceExplorer() {
     const obsMat = new THREE.PointsMaterial({ size: 3000, vertexColors: true, transparent: true, opacity: 0, depthWrite: false });
     const obsUniverse = new THREE.Points(obsGeo, obsMat);
     observableGroup.add(obsUniverse);
+    const ourLaniakea = new THREE.Mesh(
+      new THREE.SphereGeometry(150000, 64, 64),
+      new THREE.MeshBasicMaterial({ color: 0xffb703, transparent: true, opacity: 0, blending: THREE.AdditiveBlending })
+    );
+    observableGroup.add(ourLaniakea);
+    window.__proxyMats = window.__proxyMats || {};
+    window.__proxyMats.observable = ourLaniakea.material;
 
 
     // ==========================================
@@ -256,6 +277,14 @@ export default function SpaceExplorer() {
       bubbles.push(bubble);
     }
 
+
+    const ourUniverse = new THREE.Mesh(
+      new THREE.SphereGeometry(300000, 64, 64),
+      new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0, blending: THREE.AdditiveBlending })
+    );
+    multiverseGroup.add(ourUniverse);
+    window.__proxyMats = window.__proxyMats || {};
+    window.__proxyMats.multiverse = ourUniverse.material;
 
     // --- Resize Handler ---
     const handleResize = () => {
@@ -346,6 +375,13 @@ export default function SpaceExplorer() {
         b.material.opacity = multiOp * (0.3 + 0.2 * Math.sin(Date.now() * 0.001 + i));
         b.rotation.y += 0.005;
       });
+
+      if (window.__proxyMats) {
+        if (window.__proxyMats.virgo) window.__proxyMats.virgo.opacity = (typeof virgoOp !== 'undefined' ? virgoOp : 0) * 0.8;
+        if (window.__proxyMats.laniakea) window.__proxyMats.laniakea.opacity = (typeof lanOp !== 'undefined' ? lanOp : 0) * 0.8;
+        if (window.__proxyMats.observable) window.__proxyMats.observable.opacity = (typeof obsOp !== 'undefined' ? obsOp : 0) * 0.8;
+        if (window.__proxyMats.multiverse) window.__proxyMats.multiverse.opacity = (typeof multiOp !== 'undefined' ? multiOp : 0) * 0.8;
+      }
 
       // Update Label UI if changed
       if (labelRef.current !== currentLabel) {
