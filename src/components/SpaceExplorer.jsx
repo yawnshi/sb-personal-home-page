@@ -112,27 +112,71 @@ export default function SpaceExplorer() {
     // ==========================================
     // 2. THE MILKY WAY (1,000 - 10,000)
     // ==========================================
-    const mwGeo = new THREE.SphereGeometry(800, 32, 32);
-    const mwMat = new THREE.MeshBasicMaterial({ color: 0x9d4edd, transparent: true, opacity: 0 });
-    const milkyWay = new THREE.Mesh(mwGeo, mwMat);
+    const mwGeo = new THREE.BufferGeometry();
+    const mwCount = 15000;
+    const mwPos = new Float32Array(mwCount * 3);
+    const mwColors = new Float32Array(mwCount * 3);
+    for (let i = 0; i < mwCount; i++) {
+      const radius = Math.random() * 4000 + 100;
+      const angle = (radius * 0.001) + (Math.random() * Math.PI * 2);
+      mwPos[i*3] = Math.cos(angle) * radius;
+      mwPos[i*3+1] = (Math.random() - 0.5) * (100000 / radius);
+      mwPos[i*3+2] = Math.sin(angle) * radius;
+      
+      const mix = Math.min(radius / 4000, 1);
+      mwColors[i*3] = 0.5 + mix * 0.5;
+      mwColors[i*3+1] = 0.5 - mix * 0.2;
+      mwColors[i*3+2] = 1.0 - mix * 0.5;
+    }
+    mwGeo.setAttribute('position', new THREE.BufferAttribute(mwPos, 3));
+    mwGeo.setAttribute('color', new THREE.BufferAttribute(mwColors, 3));
+    // The "other dots"
+    const mwMat = new THREE.PointsMaterial({ size: 10, vertexColors: true, transparent: true, opacity: 0, depthWrite: false });
+    const milkyWay = new THREE.Points(mwGeo, mwMat);
     milkyWayGroup.add(milkyWay);
 
 
     // ==========================================
     // 3. VIRGO SUPERCLUSTER (10,000 - 50,000)
     // ==========================================
-    const virgoGeo = new THREE.SphereGeometry(8000, 32, 32);
-    const virgoMat = new THREE.MeshBasicMaterial({ color: 0x48cae4, transparent: true, opacity: 0 });
-    const virgoCluster = new THREE.Mesh(virgoGeo, virgoMat);
+    const virgoGeo = new THREE.BufferGeometry();
+    const virgoCount = 5000;
+    const virgoPos = new Float32Array(virgoCount * 3);
+    for (let i = 0; i < virgoCount * 3; i++) virgoPos[i] = (Math.random() - 0.5) * 40000;
+    virgoGeo.setAttribute('position', new THREE.BufferAttribute(virgoPos, 3));
+    const virgoMat = new THREE.PointsMaterial({ size: 100, color: 0x48cae4, transparent: true, opacity: 0, depthWrite: false });
+    const virgoCluster = new THREE.Points(virgoGeo, virgoMat);
     virgoGroup.add(virgoCluster);
 
 
     // ==========================================
     // 4. LANIAKEA SUPERCLUSTER (50,000 - 200,000)
     // ==========================================
-    const laniakeaGeo = new THREE.SphereGeometry(60000, 32, 32);
-    const laniakeaMat = new THREE.MeshBasicMaterial({ color: 0xffb703, transparent: true, opacity: 0 });
-    const laniakea = new THREE.Mesh(laniakeaGeo, laniakeaMat);
+    const laniakeaGeo = new THREE.BufferGeometry();
+    const laniakeaCount = 8000;
+    const laniakeaPos = new Float32Array(laniakeaCount * 3);
+    for (let i = 0; i < laniakeaCount; i++) {
+      const u = Math.random();
+      const v = Math.random();
+      const theta = u * 2.0 * Math.PI;
+      const phi = Math.acos(2.0 * v - 1.0);
+      const r = Math.cbrt(Math.random()) * 150000;
+      
+      // clump towards axes to form a rough web
+      let x = r * Math.sin(phi) * Math.cos(theta);
+      let y = r * Math.sin(phi) * Math.sin(theta);
+      let z = r * Math.cos(phi);
+      if (Math.random() > 0.5) x *= 0.1;
+      else if (Math.random() > 0.5) y *= 0.1;
+      else z *= 0.1;
+
+      laniakeaPos[i*3] = x;
+      laniakeaPos[i*3+1] = y;
+      laniakeaPos[i*3+2] = z;
+    }
+    laniakeaGeo.setAttribute('position', new THREE.BufferAttribute(laniakeaPos, 3));
+    const laniakeaMat = new THREE.PointsMaterial({ size: 400, color: 0xffb703, transparent: true, opacity: 0, depthWrite: false });
+    const laniakea = new THREE.Points(laniakeaGeo, laniakeaMat);
     laniakeaGroup.add(laniakea);
 
 
@@ -140,7 +184,7 @@ export default function SpaceExplorer() {
     // 5. OBSERVABLE UNIVERSE (200,000 - 1,000,000)
     // ==========================================
     const obsGeo = new THREE.SphereGeometry(300000, 64, 64);
-    const obsMat = new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0 });
+    const obsMat = new THREE.MeshBasicMaterial({ color: 0x111111, wireframe: true, transparent: true, opacity: 0 });
     const obsUniverse = new THREE.Mesh(obsGeo, obsMat);
     observableGroup.add(obsUniverse);
 
