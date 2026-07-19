@@ -1,60 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { articles } from '../data/articles';
+import { SceneryHero, wallpaperThemes } from '../components/SceneryHero';
 
-const SceneryHero = () => (
-  <svg viewBox="0 0 1920 1080" className="w-full h-full object-cover absolute inset-0 z-0" preserveAspectRatio="xMidYMid slice">
-    <defs>
-      <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stopColor="#0a0026"/>
-        <stop offset="50%" stopColor="#2c003e"/>
-        <stop offset="100%" stopColor="#8d0055"/>
-      </linearGradient>
-      <linearGradient id="sunGrad" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stopColor="#ff007c"/>
-        <stop offset="100%" stopColor="#ffb347"/>
-      </linearGradient>
-      <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
-        <feGaussianBlur stdDeviation="15" result="blur" />
-        <feComposite in="SourceGraphic" in2="blur" operator="over" />
-      </filter>
-    </defs>
-    
-    <rect width="1920" height="1080" fill="url(#skyGrad)" />
-    
-    <g fill="#ffffff" opacity="0.8">
-      <circle cx="200" cy="150" r="1.5" />
-      <circle cx="450" cy="300" r="2" opacity="0.5" />
-      <circle cx="800" cy="100" r="1" />
-      <circle cx="1200" cy="250" r="2" opacity="0.7" />
-      <circle cx="1600" cy="150" r="1.5" />
-      <circle cx="1750" cy="350" r="1" />
-      <circle cx="100" cy="400" r="2" />
-      <circle cx="950" cy="200" r="1" />
-      <circle cx="1800" cy="100" r="2" />
-      <circle cx="1400" cy="400" r="1.5" />
-      <circle cx="50" cy="50" r="1" />
-    </g>
-
-    <circle cx="960" cy="650" r="250" fill="url(#sunGrad)" filter="url(#glow)" />
-    
-    <g stroke="#8d0055" strokeWidth="6" opacity="0.8">
-      <line x1="710" y1="500" x2="1210" y2="500" />
-      <line x1="710" y1="540" x2="1210" y2="540" strokeWidth="8"/>
-      <line x1="710" y1="590" x2="1210" y2="590" strokeWidth="10"/>
-      <line x1="710" y1="650" x2="1210" y2="650" strokeWidth="14"/>
-      <line x1="710" y1="720" x2="1210" y2="720" strokeWidth="18"/>
-      <line x1="710" y1="810" x2="1210" y2="810" strokeWidth="24"/>
-    </g>
-
-    <path d="M0 800 L300 500 L600 750 L900 450 L1200 700 L1500 500 L1920 850 L1920 1080 L0 1080 Z" fill="#14002e" opacity="0.8" />
-    <path d="M0 900 L400 600 L800 850 L1100 550 L1500 800 L1920 600 L1920 1080 L0 1080 Z" fill="#0d001f" opacity="0.9" />
-    <path d="M0 1000 L500 750 L1000 950 L1400 700 L1920 950 L1920 1080 L0 1080 Z" fill="#05000d" />
-  </svg>
-);
-
-const DigitalClock = ({ showSeconds }) => {
+const DigitalClock = ({ showSeconds, themeVibe }) => {
   const [time, setTime] = useState(new Date());
 
   useEffect(() => {
@@ -72,14 +22,14 @@ const DigitalClock = ({ showSeconds }) => {
       <div className="text-xl md:text-3xl font-medium tracking-widest uppercase mb-4 opacity-90 drop-shadow-md">
         {dateStr}
       </div>
-      <div className="text-[8rem] md:text-[14rem] font-black leading-none tracking-tighter flex items-baseline drop-shadow-2xl">
-        <div className="text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-400 py-4">
-          {hours}
-          <span className={`inline-block ${time.getSeconds() % 2 === 0 ? 'opacity-100' : 'opacity-0'}`}>:</span>
-          {minutes}
+      <div className="text-[4.5rem] min-[400px]:text-[5.5rem] sm:text-[8rem] md:text-[12rem] lg:text-[14rem] font-black leading-none tracking-tighter flex flex-wrap justify-center items-baseline drop-shadow-2xl">
+        <div className="flex">
+          <span className="inline-block py-4 px-1 text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-400">{hours}</span>
+          <span className={`inline-block py-4 w-[0.3em] text-center text-gray-200 transition-opacity ${time.getSeconds() % 2 === 0 ? 'opacity-100' : 'opacity-0'}`}>:</span>
+          <span className="inline-block py-4 px-1 text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-400">{minutes}</span>
         </div>
         {showSeconds && (
-          <div className="text-[4rem] md:text-[7rem] font-bold text-transparent bg-clip-text bg-gradient-to-br from-pink-500 to-orange-400 ml-4 opacity-90 py-4 pr-2">
+          <div className={`text-[2.5rem] min-[400px]:text-[3rem] sm:text-[4rem] md:text-[6rem] lg:text-[7rem] font-bold text-transparent bg-clip-text ${themeVibe} sm:ml-4 opacity-90 py-4 px-2 md:px-4 -ml-2 sm:ml-0`}>
             {seconds}
           </div>
         )}
@@ -91,24 +41,77 @@ const DigitalClock = ({ showSeconds }) => {
 export default function PersonalSpace() {
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [showSeconds, setShowSeconds] = useState(false);
+  const [wallpaperPref, setWallpaperPref] = useState(() => {
+    return localStorage.getItem('sb_wallpaper_pref') || 'daily';
+  });
+  const [hoveredThemeId, setHoveredThemeId] = useState(null);
+  const [isThemeMenuOpen, setIsThemeMenuOpen] = useState(false);
+  const [showControls, setShowControls] = useState(true);
   const containerRef = useRef(null);
+  const idleTimerRef = useRef(null);
+
+  const resetIdleTimer = () => {
+    setShowControls(true);
+    if (idleTimerRef.current) clearTimeout(idleTimerRef.current);
+    idleTimerRef.current = setTimeout(() => {
+      setShowControls(false);
+      setIsThemeMenuOpen(false);
+    }, 4000);
+  };
+
+  useEffect(() => {
+    if (isFullscreen) resetIdleTimer();
+    return () => {
+      if (idleTimerRef.current) clearTimeout(idleTimerRef.current);
+    };
+  }, [isFullscreen]);
+
+  useEffect(() => {
+    localStorage.setItem('sb_wallpaper_pref', wallpaperPref);
+  }, [wallpaperPref]);
+
+  const savedThemeId = wallpaperPref === 'daily' 
+    ? wallpaperThemes[new Date().getDay() % wallpaperThemes.length].id 
+    : wallpaperPref;
+  const activeThemeId = hoveredThemeId || savedThemeId;
+  const activeTheme = wallpaperThemes.find(t => t.id === activeThemeId) || wallpaperThemes[0];
 
   const toggleFullscreen = async () => {
-    if (!document.fullscreenElement) {
-      await containerRef.current.requestFullscreen().catch(err => {
-        console.error(`Error attempting to enable fullscreen: ${err.message}`);
-      });
+    if (!isFullscreen) {
+      if (containerRef.current.requestFullscreen) {
+        try {
+          await containerRef.current.requestFullscreen();
+        } catch (err) {
+          console.error(`Error attempting to enable fullscreen: ${err.message}`);
+        }
+      } else if (containerRef.current.webkitRequestFullscreen) {
+        containerRef.current.webkitRequestFullscreen();
+      }
+      // Always set to true as fallback for iOS
+      setIsFullscreen(true);
     } else {
-      document.exitFullscreen();
+      if (document.fullscreenElement && document.exitFullscreen) {
+        document.exitFullscreen();
+      } else if (document.webkitFullscreenElement && document.webkitExitFullscreen) {
+        document.webkitExitFullscreen();
+      }
+      setIsFullscreen(false);
     }
   };
 
   useEffect(() => {
     const handleFullscreenChange = () => {
-      setIsFullscreen(!!document.fullscreenElement);
+      // Only update if natively supported, otherwise let the React state control it
+      if (document.fullscreenEnabled || document.webkitFullscreenEnabled) {
+         setIsFullscreen(!!(document.fullscreenElement || document.webkitFullscreenElement));
+      }
     };
     document.addEventListener('fullscreenchange', handleFullscreenChange);
-    return () => document.removeEventListener('fullscreenchange', handleFullscreenChange);
+    document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
+    return () => {
+      document.removeEventListener('fullscreenchange', handleFullscreenChange);
+      document.removeEventListener('webkitfullscreenchange', handleFullscreenChange);
+    };
   }, []);
 
   return (
@@ -118,25 +121,75 @@ export default function PersonalSpace() {
       exit={{ opacity: 0, y: -15 }}
       transition={{ duration: 0.4 }}
     >
-      <div ref={containerRef} className="relative bg-pure-black text-white font-sans h-screen overflow-y-auto hide-scrollbar scroll-smooth">
+      <div ref={containerRef} className={`bg-pure-black text-white font-sans h-screen overflow-y-auto hide-scrollbar scroll-smooth ${isFullscreen ? 'fixed inset-0 z-[100] w-full' : 'relative'}`}>
       
       {/* --- LOCKSCREEN HERO SECTION (Only visible in fullscreen) --- */}
       <div className={`relative w-full overflow-hidden transition-all duration-1000 ease-in-out ${isFullscreen ? 'h-[100vh] opacity-100' : 'h-0 opacity-0'}`}>
-        {isFullscreen && <SceneryHero />}
+        {isFullscreen && <SceneryHero themeId={activeThemeId} />}
         {isFullscreen && (
-          <div className="absolute inset-0 flex flex-col items-center justify-center">
-             <DigitalClock showSeconds={showSeconds} />
+          <div 
+            className="absolute inset-0 flex flex-col items-center justify-center"
+            onMouseMove={resetIdleTimer}
+            onClick={resetIdleTimer}
+            onTouchStart={resetIdleTimer}
+          >
+             <DigitalClock showSeconds={showSeconds} themeVibe={activeTheme.vibe} />
              
-             {/* Seconds Toggle */}
-             <div className="absolute bottom-12 flex flex-col items-center gap-4 z-20">
-               <div className="flex items-center gap-3 bg-black/40 backdrop-blur-md px-6 py-3 rounded-full border border-white/10 hover:border-white/30 transition-all">
+             {/* Controls Group */}
+             <div className={`absolute bottom-12 flex flex-col items-center gap-4 z-20 transition-all duration-700 ${showControls ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 pointer-events-none'}`}>
+               <div className="flex items-center gap-3 bg-black/40 backdrop-blur-md px-6 py-3 rounded-full border border-white/10 transition-all shadow-2xl relative">
                   <span className="text-sm font-bold tracking-widest uppercase text-gray-300">Seconds</span>
                   <button 
                     onClick={() => setShowSeconds(!showSeconds)}
-                    className={`w-12 h-6 rounded-full transition-colors relative flex items-center ${showSeconds ? 'bg-brand' : 'bg-gray-600'}`}
+                    className={`w-12 h-6 rounded-full transition-all relative flex items-center ${showSeconds ? activeTheme.vibe : 'bg-gray-600'}`}
                   >
                     <div className={`w-4 h-4 rounded-full bg-white absolute transition-transform duration-300 ${showSeconds ? 'translate-x-7' : 'translate-x-1'}`}></div>
                   </button>
+
+                  <div className="w-px h-6 bg-white/20 mx-2"></div>
+
+                  {/* Theme Palette Toggle */}
+                  <button 
+                    onClick={() => setIsThemeMenuOpen(!isThemeMenuOpen)}
+                    className={`text-gray-300 hover:text-white transition-colors p-2 rounded-full hover:bg-white/10 ${isThemeMenuOpen ? 'bg-white/20 text-white' : ''}`}
+                    title="Change Wallpaper"
+                  >
+                    <i className="fas fa-palette"></i>
+                  </button>
+
+                  {/* Theme Menu Dropdown */}
+                  <AnimatePresence>
+                    {isThemeMenuOpen && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                        className="absolute bottom-full mb-4 left-1/2 -translate-x-1/2 bg-black/70 backdrop-blur-xl border border-white/10 rounded-2xl p-4 flex flex-col gap-2 w-48 shadow-2xl origin-bottom"
+                      >
+                        <button
+                          onClick={() => setWallpaperPref('daily')}
+                          onMouseEnter={() => setHoveredThemeId('daily' === 'daily' ? wallpaperThemes[new Date().getDay() % wallpaperThemes.length].id : null)}
+                          onMouseLeave={() => setHoveredThemeId(null)}
+                          className={`text-left px-4 py-2 rounded-xl text-sm font-bold tracking-widest uppercase transition-colors ${wallpaperPref === 'daily' ? activeTheme.vibe + ' text-white' : 'text-gray-400 hover:bg-white/10 hover:text-white'}`}
+                        >
+                          <i className="fas fa-sync-alt mr-2"></i> Daily Rotate
+                        </button>
+                        <div className="h-px bg-white/10 my-1 w-full"></div>
+                        {wallpaperThemes.map(t => (
+                          <button
+                            key={t.id}
+                            onClick={() => setWallpaperPref(t.id)}
+                            onMouseEnter={() => setHoveredThemeId(t.id)}
+                            onMouseLeave={() => setHoveredThemeId(null)}
+                            className={`text-left px-4 py-2 rounded-xl text-sm font-bold transition-colors flex items-center gap-2 ${wallpaperPref === t.id ? 'bg-white/20 text-white' : 'text-gray-400 hover:bg-white/10 hover:text-white'}`}
+                          >
+                            <div className={`w-3 h-3 rounded-full ${t.vibe}`}></div>
+                            {t.name}
+                          </button>
+                        ))}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                </div>
                
                {/* Scroll Indicator */}
@@ -175,7 +228,7 @@ export default function PersonalSpace() {
       {isFullscreen && (
         <button 
           onClick={toggleFullscreen}
-          className="fixed top-6 right-6 z-50 bg-pure-black/50 hover:bg-red-500/80 text-white p-4 rounded-full backdrop-blur-md transition-all shadow-xl border border-white/10"
+          className={`fixed top-6 right-6 z-50 bg-pure-black/50 hover:bg-white/20 text-white p-4 rounded-full backdrop-blur-md shadow-xl border border-white/10 transition-all duration-700 ease-in-out ${showControls ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4 pointer-events-none'}`}
           title="Exit Wallpaper Mode"
         >
           <i className="fas fa-compress text-xl"></i>

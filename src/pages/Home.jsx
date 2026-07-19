@@ -944,6 +944,67 @@ export default function Home() {
         </div>
       </section>
 
+      <section id="vibe-coding" className="relative min-h-screen flex items-center justify-center py-24 z-10">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 w-full relative">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-black mb-4 tracking-tight text-white">
+              Vibe <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-cyan-400">Coding</span> & Ideas
+            </h2>
+            <p className="text-gray-400 max-w-2xl mx-auto">
+              A collection of aesthetic explorations, generative art, and premium UI concepts. 
+              Because code is not just logic, it's an art form.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {/* Card 1 */}
+            <div className="group relative rounded-3xl overflow-hidden bg-white/[0.02] border border-white/10 hover:border-purple-500/50 transition-all duration-500 card-hover aspect-[4/5]">
+              <div className="absolute inset-0 bg-gradient-to-t from-pure-black via-pure-black/20 to-transparent z-10 opacity-90 group-hover:opacity-70 transition-opacity duration-500"></div>
+              <img src="./images/vibe1.png" alt="Generative Particle Flow" className="absolute inset-0 w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-1000" />
+              <div className="absolute inset-0 z-20 p-8 flex flex-col justify-end">
+                <div className="w-12 h-12 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center mb-6 border border-white/20 transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
+                  <i className="fas fa-play text-white"></i>
+                </div>
+                <h3 className="text-2xl font-bold text-white mb-2">Generative Particle Flow</h3>
+                <p className="text-gray-300 text-sm opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-500 delay-75">
+                  An interactive canvas experiment exploring physics and glowing fluid dynamics.
+                </p>
+              </div>
+            </div>
+
+            {/* Card 2 */}
+            <div className="group relative rounded-3xl overflow-hidden bg-white/[0.02] border border-white/10 hover:border-cyan-400/50 transition-all duration-500 card-hover aspect-[4/5] md:translate-y-12">
+              <div className="absolute inset-0 bg-gradient-to-t from-pure-black via-pure-black/20 to-transparent z-10 opacity-90 group-hover:opacity-70 transition-opacity duration-500"></div>
+              <img src="./images/vibe2.png" alt="Fluid Glassmorphism" className="absolute inset-0 w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-1000" />
+              <div className="absolute inset-0 z-20 p-8 flex flex-col justify-end">
+                <div className="w-12 h-12 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center mb-6 border border-white/20 transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 delay-75">
+                  <i className="fab fa-codepen text-white text-xl"></i>
+                </div>
+                <h3 className="text-2xl font-bold text-white mb-2">Fluid Glassmorphism</h3>
+                <p className="text-gray-300 text-sm opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-500 delay-150">
+                  Refining the glass aesthetic with dynamic, liquid-like background blur effects.
+                </p>
+              </div>
+            </div>
+
+            {/* Card 3 */}
+            <div className="group relative rounded-3xl overflow-hidden bg-white/[0.02] border border-white/10 hover:border-orange-500/50 transition-all duration-500 card-hover aspect-[4/5]">
+              <div className="absolute inset-0 bg-gradient-to-t from-pure-black via-pure-black/20 to-transparent z-10 opacity-90 group-hover:opacity-70 transition-opacity duration-500"></div>
+              <img src="./images/vibe3.png" alt="Cybernetic Geometry" className="absolute inset-0 w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-1000" />
+              <div className="absolute inset-0 z-20 p-8 flex flex-col justify-end">
+                <div className="w-12 h-12 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center mb-6 border border-white/20 transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 delay-150">
+                  <i className="fas fa-cube text-white text-xl"></i>
+                </div>
+                <h3 className="text-2xl font-bold text-white mb-2">Cybernetic Geometry</h3>
+                <p className="text-gray-300 text-sm opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-500 delay-200">
+                  3D wireframe manipulation with cinematic neon lighting and post-processing.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section id="skills" className="relative min-h-screen flex items-center justify-center py-24 z-10">
         <div className="max-w-7xl mx-auto px-6 md:px-12 w-full relative">
           <div className="bg-off-black/80 backdrop-blur-md border border-brand/20 rounded-3xl p-8 md:p-12 shadow-[0_0_40px_rgba(16,185,129,0.05)] relative overflow-hidden">
