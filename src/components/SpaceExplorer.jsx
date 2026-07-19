@@ -40,6 +40,20 @@ export default function SpaceExplorer() {
     const pointLight = new THREE.PointLight(0xffffff, 2, 0, 0); // No decay
     scene.add(pointLight);
 
+    
+    // --- Soft Circular Particle Texture (for proxies) ---
+    const circleCanvas = document.createElement('canvas');
+    circleCanvas.width = 64;
+    circleCanvas.height = 64;
+    const circleCtx = circleCanvas.getContext('2d');
+    const grad = circleCtx.createRadialGradient(32, 32, 0, 32, 32, 32);
+    grad.addColorStop(0, 'rgba(255, 255, 255, 1)');
+    grad.addColorStop(0.2, 'rgba(255, 255, 255, 1)');
+    grad.addColorStop(1, 'rgba(255, 255, 255, 0)');
+    circleCtx.fillStyle = grad;
+    circleCtx.fillRect(0, 0, 64, 64);
+    const circleTex = new THREE.CanvasTexture(circleCanvas);
+
     // --- Layer Groups ---
     const solarGroup = new THREE.Group();
     const milkyWayGroup = new THREE.Group();
@@ -151,7 +165,7 @@ export default function SpaceExplorer() {
     ourMilkyWayGeo.setAttribute('position', new THREE.BufferAttribute(new Float32Array([0, 0, 0]), 3));
     const ourMilkyWay = new THREE.Points(
       ourMilkyWayGeo,
-      new THREE.PointsMaterial({ color: 0x48cae4, size: 100, transparent: true, opacity: 0, depthWrite: false })
+      new THREE.PointsMaterial({ map: circleTex, color: 0x48cae4, size: 100, transparent: true, opacity: 0, depthWrite: false })
     );
     virgoGroup.add(ourMilkyWay);
     window.__proxyMats = window.__proxyMats || {};
@@ -191,7 +205,7 @@ export default function SpaceExplorer() {
     ourVirgoGeo.setAttribute('position', new THREE.BufferAttribute(new Float32Array([0, 0, 0]), 3));
     const ourVirgo = new THREE.Points(
       ourVirgoGeo,
-      new THREE.PointsMaterial({ color: 0xffb703, size: 400, transparent: true, opacity: 0, depthWrite: false })
+      new THREE.PointsMaterial({ map: circleTex, color: 0xffb703, size: 400, transparent: true, opacity: 0, depthWrite: false })
     );
     laniakeaGroup.add(ourVirgo);
     window.__proxyMats = window.__proxyMats || {};
@@ -246,7 +260,7 @@ export default function SpaceExplorer() {
     ourLaniakeaGeo.setAttribute('position', new THREE.BufferAttribute(new Float32Array([0, 0, 0]), 3));
     const ourLaniakea = new THREE.Points(
       ourLaniakeaGeo,
-      new THREE.PointsMaterial({ color: 0xffffff, size: 3000, transparent: true, opacity: 0, depthWrite: false })
+      new THREE.PointsMaterial({ map: circleTex, color: 0xffffff, size: 3000, transparent: true, opacity: 0, depthWrite: false })
     );
     observableGroup.add(ourLaniakea);
     window.__proxyMats = window.__proxyMats || {};
