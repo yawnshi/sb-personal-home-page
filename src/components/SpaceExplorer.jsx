@@ -142,6 +142,7 @@ export default function SpaceExplorer() {
       mwColors[i*3+1] = 0.5 - mix * 0.2;
       mwColors[i*3+2] = 1.0 - mix * 0.5;
     }
+    mwGeo.computeBoundingSphere();
     mwGeo.setAttribute('position', new THREE.BufferAttribute(mwPos, 3));
     mwGeo.setAttribute('color', new THREE.BufferAttribute(mwColors, 3));
     // The "other dots"
@@ -156,7 +157,19 @@ export default function SpaceExplorer() {
     const virgoGeo = new THREE.BufferGeometry();
     const virgoCount = 5000;
     const virgoPos = new Float32Array(virgoCount * 3);
-    for (let i = 0; i < virgoCount * 3; i++) virgoPos[i] = (Math.random() - 0.5) * 40000;
+    for (let i = 0; i < virgoCount; i++) {
+      let x, y, z;
+      while (true) {
+         x = (Math.random() - 0.5) * 40000;
+         y = (Math.random() - 0.5) * 40000;
+         z = (Math.random() - 0.5) * 40000;
+         if (x*x + y*y + z*z <= 20000 * 20000) break;
+      }
+      virgoPos[i*3] = x;
+      virgoPos[i*3+1] = y;
+      virgoPos[i*3+2] = z;
+    }
+    virgoGeo.computeBoundingSphere();
     virgoGeo.setAttribute('position', new THREE.BufferAttribute(virgoPos, 3));
     const virgoMat = new THREE.PointsMaterial({ size: 100, color: 0x48cae4, transparent: true, opacity: 0, depthWrite: false });
     const virgoCluster = new THREE.Points(virgoGeo, virgoMat);
@@ -179,24 +192,26 @@ export default function SpaceExplorer() {
     const laniakeaCount = 8000;
     const laniakeaPos = new Float32Array(laniakeaCount * 3);
     for (let i = 0; i < laniakeaCount; i++) {
-      const u = Math.random();
-      const v = Math.random();
-      const theta = u * 2.0 * Math.PI;
-      const phi = Math.acos(2.0 * v - 1.0);
-      const r = Math.cbrt(Math.random()) * 150000;
-      
-      // clump towards axes to form a rough web
-      let x = r * Math.sin(phi) * Math.cos(theta);
-      let y = r * Math.sin(phi) * Math.sin(theta);
-      let z = r * Math.cos(phi);
-      if (Math.random() > 0.5) x *= 0.1;
-      else if (Math.random() > 0.5) y *= 0.1;
-      else z *= 0.1;
-
+      let x, y, z;
+      while (true) {
+        const randU = Math.random();
+        const randV = Math.random();
+        const randTheta = randU * 2.0 * Math.PI;
+        const randPhi = Math.acos(2.0 * randV - 1.0);
+        const randR = Math.cbrt(Math.random()) * 150000;
+        
+        x = randR * Math.sin(randPhi) * Math.cos(randTheta);
+        y = randR * Math.sin(randPhi) * Math.sin(randTheta);
+        z = randR * Math.cos(randPhi);
+        
+        const density = Math.sin(x / 15000) * Math.sin(y / 15000) * Math.sin(z / 15000);
+        if (Math.random() < density * density * 5.0) break;
+      }
       laniakeaPos[i*3] = x;
       laniakeaPos[i*3+1] = y;
       laniakeaPos[i*3+2] = z;
     }
+    laniakeaGeo.computeBoundingSphere();
     laniakeaGeo.setAttribute('position', new THREE.BufferAttribute(laniakeaPos, 3));
     const laniakeaMat = new THREE.PointsMaterial({ size: 400, color: 0xffb703, transparent: true, opacity: 0, depthWrite: false });
     const laniakea = new THREE.Points(laniakeaGeo, laniakeaMat);
@@ -251,6 +266,7 @@ export default function SpaceExplorer() {
       obsColors[i*3+1] = gC;
       obsColors[i*3+2] = bC;
     }
+    obsGeo.computeBoundingSphere();
     obsGeo.setAttribute('position', new THREE.BufferAttribute(obsPos, 3));
     obsGeo.setAttribute('color', new THREE.BufferAttribute(obsColors, 3));
     const obsMat = new THREE.PointsMaterial({ size: 3000, vertexColors: true, transparent: true, opacity: 0, depthWrite: false });
