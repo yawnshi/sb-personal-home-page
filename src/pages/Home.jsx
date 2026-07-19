@@ -487,11 +487,28 @@ export default function Home() {
             showOverlay(number, text);
           }
         } else if (e.target.id === "btn-maximize") {
-          // Green button: recover completely
+          // Green button: recover completely and toggle fullscreen
           exitClicks = 0;
           let crackSvg = document.getElementById("windowCracks");
           if (crackSvg) {
             crackSvg.innerHTML = "";
+          }
+          
+          const explorerWindow = document.getElementById("space-explorer-window");
+          if (explorerWindow) {
+            if (!document.fullscreenElement && !document.webkitFullscreenElement) {
+              if (explorerWindow.requestFullscreen) {
+                explorerWindow.requestFullscreen().catch(err => console.log(err));
+              } else if (explorerWindow.webkitRequestFullscreen) {
+                explorerWindow.webkitRequestFullscreen();
+              }
+            } else {
+              if (document.exitFullscreen) {
+                document.exitFullscreen();
+              } else if (document.webkitExitFullscreen) {
+                document.webkitExitFullscreen();
+              }
+            }
           }
         } else if (e.target.id === "btn-minimize") {
           // Yellow button: recover partially
@@ -641,7 +658,7 @@ export default function Home() {
               {/*  Glow effect behind terminal  */}
               <div className="absolute -inset-1 bg-gradient-to-r from-brand-dark to-brand rounded-2xl blur opacity-20 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
 
-              <div className="relative bg-[#0d1117] rounded-xl border border-gray-800 shadow-2xl overflow-hidden h-full flex flex-col min-h-[445px]">
+              <div id="space-explorer-window" className="relative bg-[#0d1117] rounded-xl border border-gray-800 shadow-2xl overflow-hidden h-full flex flex-col min-h-[445px]">
                 {/*  Terminal Header  */}
                 <div id="terminal-header" className="flex items-center px-4 py-3 bg-[#161b22] border-b border-gray-800">
                   <div className="flex space-x-2">
