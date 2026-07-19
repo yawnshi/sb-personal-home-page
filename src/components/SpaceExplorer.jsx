@@ -302,6 +302,8 @@ export default function SpaceExplorer() {
 
     // --- Animation & LOD Loop ---
     let animId;
+    let lastDist = 0;
+    let zoomTimeout = null;
     const animate = () => {
       animId = requestAnimationFrame(animate);
 
@@ -388,6 +390,20 @@ export default function SpaceExplorer() {
         if (window.__proxyMats.multiverse) window.__proxyMats.multiverse.opacity = (typeof multiOp !== 'undefined' ? multiOp : 0) * 0.8;
       }
 
+      // Zooming out subtitle logic
+      const zoomSubtitle = document.getElementById('zoomSubtitle');
+      if (zoomSubtitle) {
+        if (dist > lastDist + 5) { // User is actively scrolling out
+          zoomSubtitle.style.opacity = '1';
+          if (zoomTimeout) clearTimeout(zoomTimeout);
+          zoomTimeout = setTimeout(() => {
+            const el = document.getElementById('zoomSubtitle');
+            if (el) el.style.opacity = '0';
+          }, 800);
+        }
+      }
+      lastDist = dist;
+
       // Update Label UI if changed
       if (labelRef.current !== currentLabel) {
         labelRef.current = currentLabel;
@@ -418,10 +434,16 @@ export default function SpaceExplorer() {
       
       {/* Dynamic Scale Label */}
       {isPlaying && (
-         <div className="absolute top-4 left-1/2 -translate-x-1/2 bg-black/60 backdrop-blur-md border border-brand/30 text-white px-8 py-2 rounded-2xl flex flex-col items-center z-20 shadow-[0_0_15px_rgba(16,185,129,0.3)] transition-all pointer-events-none">
-           <span className="font-mono text-xs tracking-widest uppercase">{layerLabel}</span>
-           <span className="text-[9px] text-brand/80 font-mono mt-0.5 tracking-wider uppercase">Keep on zooming out</span>
+         <div className="absolute top-4 left-1/2 -translate-x-1/2 bg-black/60 backdrop-blur-md border border-brand/30 text-white px-6 py-2 rounded-full font-mono text-xs tracking-widest uppercase z-20 shadow-[0_0_15px_rgba(16,185,129,0.3)] transition-all pointer-events-none">
+           {layerLabel}
          </div>
+      )}
+
+      {/* Zooming Subtitle */}
+      {isPlaying && (
+        <div id="zoomSubtitle" className="absolute bottom-8 left-1/2 -translate-x-1/2 text-brand/80 font-mono text-[10px] tracking-[0.2em] uppercase z-20 pointer-events-none opacity-0 transition-opacity duration-500">
+          Keep on zooming out
+        </div>
       )}
 
       {/* Start Overlay */}
