@@ -147,9 +147,11 @@ export default function SpaceExplorer() {
     const virgoMat = new THREE.PointsMaterial({ size: 100, color: 0x48cae4, transparent: true, opacity: 0, depthWrite: false });
     const virgoCluster = new THREE.Points(virgoGeo, virgoMat);
     virgoGroup.add(virgoCluster);
-    const ourMilkyWay = new THREE.Mesh(
-      new THREE.SphereGeometry(2000, 32, 32),
-      new THREE.MeshBasicMaterial({ color: 0x9d4edd, transparent: true, opacity: 0, blending: THREE.AdditiveBlending })
+    const ourMilkyWayGeo = new THREE.BufferGeometry();
+    ourMilkyWayGeo.setAttribute('position', new THREE.BufferAttribute(new Float32Array([0, 0, 0]), 3));
+    const ourMilkyWay = new THREE.Points(
+      ourMilkyWayGeo,
+      new THREE.PointsMaterial({ color: 0x48cae4, size: 100, transparent: true, opacity: 0, depthWrite: false })
     );
     virgoGroup.add(ourMilkyWay);
     window.__proxyMats = window.__proxyMats || {};
@@ -185,9 +187,11 @@ export default function SpaceExplorer() {
     const laniakeaMat = new THREE.PointsMaterial({ size: 400, color: 0xffb703, transparent: true, opacity: 0, depthWrite: false });
     const laniakea = new THREE.Points(laniakeaGeo, laniakeaMat);
     laniakeaGroup.add(laniakea);
-    const ourVirgo = new THREE.Mesh(
-      new THREE.SphereGeometry(20000, 32, 32),
-      new THREE.MeshBasicMaterial({ color: 0x48cae4, transparent: true, opacity: 0, blending: THREE.AdditiveBlending })
+    const ourVirgoGeo = new THREE.BufferGeometry();
+    ourVirgoGeo.setAttribute('position', new THREE.BufferAttribute(new Float32Array([0, 0, 0]), 3));
+    const ourVirgo = new THREE.Points(
+      ourVirgoGeo,
+      new THREE.PointsMaterial({ color: 0xffb703, size: 400, transparent: true, opacity: 0, depthWrite: false })
     );
     laniakeaGroup.add(ourVirgo);
     window.__proxyMats = window.__proxyMats || {};
@@ -238,9 +242,11 @@ export default function SpaceExplorer() {
     const obsMat = new THREE.PointsMaterial({ size: 3000, vertexColors: true, transparent: true, opacity: 0, depthWrite: false });
     const obsUniverse = new THREE.Points(obsGeo, obsMat);
     observableGroup.add(obsUniverse);
-    const ourLaniakea = new THREE.Mesh(
-      new THREE.SphereGeometry(150000, 64, 64),
-      new THREE.MeshBasicMaterial({ color: 0xffb703, transparent: true, opacity: 0, blending: THREE.AdditiveBlending })
+    const ourLaniakeaGeo = new THREE.BufferGeometry();
+    ourLaniakeaGeo.setAttribute('position', new THREE.BufferAttribute(new Float32Array([0, 0, 0]), 3));
+    const ourLaniakea = new THREE.Points(
+      ourLaniakeaGeo,
+      new THREE.PointsMaterial({ color: 0xffffff, size: 3000, transparent: true, opacity: 0, depthWrite: false })
     );
     observableGroup.add(ourLaniakea);
     window.__proxyMats = window.__proxyMats || {};
@@ -261,7 +267,6 @@ export default function SpaceExplorer() {
         color: bColor,
         transparent: true,
         opacity: 0,
-        wireframe: Math.random() > 0.7,
         blending: THREE.AdditiveBlending
       });
       const bubble = new THREE.Mesh(bGeo, bMat);
@@ -279,7 +284,7 @@ export default function SpaceExplorer() {
 
 
     const ourUniverse = new THREE.Mesh(
-      new THREE.SphereGeometry(300000, 64, 64),
+      new THREE.SphereGeometry(35000, 32, 32),
       new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0, blending: THREE.AdditiveBlending })
     );
     multiverseGroup.add(ourUniverse);
