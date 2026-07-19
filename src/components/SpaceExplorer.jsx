@@ -89,8 +89,8 @@ export default function SpaceExplorer() {
       mesh.position.x = data.dist;
 
       if (data.size === 5) { // Saturn Ring
-        const ringGeo = new THREE.RingGeometry(6, 10, 32);
-        const ringMat = new THREE.MeshStandardMaterial({ color: 0xa9a59c, side: THREE.DoubleSide, transparent: true, opacity: 0.8 });
+        const ringGeo = new THREE.TorusGeometry(8, 1.5, 16, 64);
+        const ringMat = new THREE.MeshStandardMaterial({ color: 0xa9a59c, transparent: true, opacity: 0.8 });
         const ring = new THREE.Mesh(ringGeo, ringMat);
         ring.rotation.x = Math.PI / 2 + 0.2;
         mesh.add(ring);
