@@ -418,8 +418,9 @@ export default function SpaceExplorer() {
       
       {/* Dynamic Scale Label */}
       {isPlaying && (
-         <div className="absolute top-4 left-1/2 -translate-x-1/2 bg-black/60 backdrop-blur-md border border-brand/30 text-white px-6 py-2 rounded-full font-mono text-xs tracking-widest uppercase z-20 shadow-[0_0_15px_rgba(16,185,129,0.3)] transition-all pointer-events-none">
-           {layerLabel}
+         <div className="absolute top-4 left-1/2 -translate-x-1/2 bg-black/60 backdrop-blur-md border border-brand/30 text-white px-8 py-2 rounded-2xl flex flex-col items-center z-20 shadow-[0_0_15px_rgba(16,185,129,0.3)] transition-all pointer-events-none">
+           <span className="font-mono text-xs tracking-widest uppercase">{layerLabel}</span>
+           <span className="text-[9px] text-brand/80 font-mono mt-0.5 tracking-wider uppercase">Keep on zooming out</span>
          </div>
       )}
 
