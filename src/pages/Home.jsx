@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import "../App.css"; // For the glass-shake animation
+import SpaceExplorer from "../components/SpaceExplorer";
 
 export default function Home() {
   const [clickCount, setClickCount] = useState(0);
@@ -154,166 +155,6 @@ export default function Home() {
     // Start animations
     setCanvasSize();
     animate();
-
-    // --- 3D Space Explorer Logic ---
-    const spaceContainer = document.getElementById("canvas-container");
-    const gameContainer = document.getElementById("gameContainer");
-    const gameOverlay = document.getElementById("gameOverlay");
-
-    let spaceScene, spaceCamera, spaceRenderer, orbitControls;
-    let planets = [];
-    let isSpacePlaying = false;
-
-    function initSpace() {
-      spaceScene = new THREE.Scene();
-      spaceScene.background = new THREE.Color("#050505");
-
-      spaceCamera = new THREE.PerspectiveCamera(
-        45,
-        spaceContainer.clientWidth / spaceContainer.clientHeight,
-        0.1,
-        1000,
-      );
-      // Position camera to view the system nicely
-      spaceCamera.position.set(0, 50, 100);
-
-      spaceRenderer = new THREE.WebGLRenderer({ antialias: true });
-      spaceRenderer.setSize(spaceContainer.clientWidth, spaceContainer.clientHeight);
-      spaceContainer.appendChild(spaceRenderer.domElement);
-
-      orbitControls = new OrbitControls(spaceCamera, spaceRenderer.domElement);
-      orbitControls.enableDamping = true;
-      orbitControls.dampingFactor = 0.05;
-      orbitControls.enabled = false; // Disable until clicked
-
-      // Lights
-      const ambientLight = new THREE.AmbientLight(0x333333);
-      spaceScene.add(ambientLight);
-
-      const pointLight = new THREE.PointLight(0xffffff, 2, 300, 0); // Add decay=0 parameter for legacy lighting look
-      spaceScene.add(pointLight);
-
-      const sunGeo = new THREE.SphereGeometry(8, 32, 32);
-      const sunMat = new THREE.MeshBasicMaterial({ color: 0xfdb813 });
-      const sun = new THREE.Mesh(sunGeo, sunMat);
-      spaceScene.add(sun);
-
-      // Planets Data (Color, Size, Distance, Orbit Speed)
-      const planetData = [
-        { color: 0x888888, size: 1.5, dist: 15, speed: 0.04 }, // Mercury
-        { color: 0xe3bb76, size: 2.5, dist: 25, speed: 0.015 }, // Venus
-        { color: 0x2b82c9, size: 3, dist: 35, speed: 0.01 }, // Earth
-        { color: 0xc1440e, size: 2, dist: 45, speed: 0.008 }, // Mars
-        { color: 0xd8ca9d, size: 6, dist: 65, speed: 0.002 }, // Jupiter
-        { color: 0xead6b8, size: 5, dist: 85, speed: 0.0015 }, // Saturn
-      ];
-
-      planetData.forEach((data) => {
-        // Visual Orbit Ring matching brand color
-        const orbitGeo = new THREE.RingGeometry(data.dist - 0.1, data.dist + 0.1, 64);
-        const orbitMat = new THREE.MeshBasicMaterial({
-          color: 0x10b981,
-          transparent: true,
-          opacity: 0.2,
-          side: THREE.DoubleSide,
-        });
-        const orbitRing = new THREE.Mesh(orbitGeo, orbitMat);
-        orbitRing.rotation.x = Math.PI / 2;
-        spaceScene.add(orbitRing);
-
-        // Planet Group (Used for orbiting around the sun)
-        const group = new THREE.Group();
-        spaceScene.add(group);
-
-        // Planet Mesh (Used for appearance and rotating on own axis)
-        const geo = new THREE.SphereGeometry(data.size, 32, 32);
-        const mat = new THREE.MeshStandardMaterial({
-          color: data.color,
-          roughness: 0.8,
-          metalness: 0.2,
-        });
-        const mesh = new THREE.Mesh(geo, mat);
-        mesh.position.x = data.dist;
-
-        // Add Saturn's Ring
-        if (data.size === 5) {
-          const ringGeo = new THREE.RingGeometry(6, 10, 32);
-          const ringMat = new THREE.MeshStandardMaterial({
-            color: 0xa9a59c,
-            side: THREE.DoubleSide,
-            transparent: true,
-            opacity: 0.8,
-          });
-          const ring = new THREE.Mesh(ringGeo, ringMat);
-          ring.rotation.x = Math.PI / 2 + 0.2; // Tilt ring
-          mesh.add(ring);
-        }
-
-        group.add(mesh);
-        planets.push({ group, speed: data.speed, mesh });
-      });
-
-      const starsGeo = new THREE.BufferGeometry();
-      const starsCount = 500;
-      const posArray = new Float32Array(starsCount * 3);
-      for (let i = 0; i < starsCount * 3; i++) {
-        posArray[i] = (Math.random() - 0.5) * 400; // Spread randomly
-      }
-      starsGeo.setAttribute("position", new THREE.BufferAttribute(posArray, 3));
-      const starsMat = new THREE.PointsMaterial({ size: 0.5, color: 0xffffff });
-      const stars = new THREE.Points(starsGeo, starsMat);
-      spaceScene.add(stars);
-
-      // Handle resize events cleanly inside the container
-      window.addEventListener("resize", () => {
-        if (spaceContainer && spaceCamera && spaceRenderer) {
-          spaceCamera.aspect = spaceContainer.clientWidth / spaceContainer.clientHeight;
-          spaceCamera.updateProjectionMatrix();
-          spaceRenderer.setSize(spaceContainer.clientWidth, spaceContainer.clientHeight);
-        }
-      });
-    }
-
-    let spaceAnimationId;
-    function animateSpace() {
-      spaceAnimationId = requestAnimationFrame(animateSpace);
-
-      if (isSpacePlaying && orbitControls) {
-        orbitControls.update();
-      }
-
-      // Rotate planets along their orbits and axes
-      planets.forEach((p) => {
-        p.group.rotation.y += p.speed;
-        p.mesh.rotation.y += 0.01;
-      });
-
-      if (spaceRenderer && spaceScene && spaceCamera) {
-        spaceRenderer.render(spaceScene, spaceCamera);
-      }
-    }
-
-    // Initialize 3D Simulation directly since useEffect guarantees DOM is ready
-    let spaceInitTimeout;
-    if (spaceContainer) {
-      // Small timeout to ensure container has dimensions
-      spaceInitTimeout = setTimeout(() => {
-        // Double check container still exists in DOM
-        if (document.getElementById("canvas-container")) {
-          initSpace();
-          animateSpace();
-        }
-      }, 50);
-    }
-
-    // Bind play button interactions
-    gameContainer.addEventListener("click", () => {
-      if (!isSpacePlaying) {
-        isSpacePlaying = true;
-        gameOverlay.classList.add("hidden");
-        if (orbitControls) orbitControls.enabled = true;
-      }
-    });
 
     // --- Smooth Scrolling & Disable URL Hash ---
     document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
@@ -531,25 +372,6 @@ export default function Home() {
     return () => {
       window.removeEventListener("resize", setCanvasSize);
       if (animationId) cancelAnimationFrame(animationId);
-      if (spaceAnimationId) cancelAnimationFrame(spaceAnimationId);
-      if (spaceInitTimeout) clearTimeout(spaceInitTimeout);
-      
-      // Cleanup Three.js memory to prevent leaks
-      if (spaceRenderer) spaceRenderer.dispose();
-      if (spaceScene) {
-        spaceScene.traverse((object) => {
-          if (object.isMesh) {
-            if (object.geometry) object.geometry.dispose();
-            if (object.material) {
-              if (Array.isArray(object.material)) {
-                object.material.forEach(material => material.dispose());
-              } else {
-                object.material.dispose();
-              }
-            }
-          }
-        });
-      }
     };
   }, []);
 
@@ -681,28 +503,7 @@ export default function Home() {
                 </div>
 
                 {/*  Terminal Body / Game Container  */}
-                <div
-                  id="gameContainer"
-                  className="flex-1 bg-pure-black relative flex items-center justify-center cursor-pointer overflow-hidden p-0 touch-none"
-                >
-                  {/*  Three.js Canvas Container  */}
-                  <div id="canvas-container" className="w-full h-full absolute inset-0"></div>
-
-                  {/*  Overlay: Start Screen  */}
-                  <div
-                    id="gameOverlay"
-                    className="absolute inset-0 bg-pure-black/80 flex flex-col items-center justify-center text-brand font-mono transition-opacity backdrop-blur-sm z-10"
-                  >
-                    <i className="fas fa-rocket text-4xl mb-3 animate-pulse"></i>
-                    <span className="text-lg font-bold">Space Explorer</span>
-                    <span className="text-xs text-gray-400 mt-2 text-center px-4">Interactive 3D Solar System</span>
-                    <span className="text-xs text-gray-500 mt-4 text-center px-4 font-bold border border-gray-700 rounded p-2 bg-gray-900/50">
-                      🖱️ Drag to Rotate | 📜 Scroll to Zoom
-                      <br />
-                      👆 Swipe to Rotate | 🤏 Pinch to Zoom
-                    </span>
-                  </div>
-                </div>
+                <SpaceExplorer />
               </div>
             </div>
 
